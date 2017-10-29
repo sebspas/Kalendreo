@@ -43,4 +43,10 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="title_activity_signup">Sign Up</string>
+
+    <!-- Facebook Auth -->
+    <string name="facebook_app_id">2010983615784764</string>
+    <string name="fb_login_protocol_scheme">fb2010983615784764</string>
+    <!-- End Facebook Auth-->
+
 </resources>
