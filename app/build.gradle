@@ -48,7 +48,9 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.27.0'
 
     testCompile 'junit:junit:4.12'
+    implementation 'com.google.android.gms:play-services-maps:11.4.2'
 }
+
 
 
 

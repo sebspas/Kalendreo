@@ -49,4 +49,14 @@
     <string name="fb_login_protocol_scheme">fb2010983615784764</string>
     <!-- End Facebook Auth-->
 
+    <string name="datePicker">Date de début</string>
+    <string name="HourPicker">Heure de début</string>
+    <string name="DebutDateHeure">Date et Heure de début</string>
+    <string name="DateFin">Date de fin</string>
+    <string name="EndHour">Heure de fin</string>
+    <string name="SelectCategorie">Sélectionner la Catégorie d\'event</string>
+    <string name="ValiderEvent">Créer</string>
+    <string name="EventTitle">Titre de l\'event</string>
+    <string name="CreateEvent">Create an Event</string>
+
 </resources>
