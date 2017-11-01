@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     // FACEBOOK AUTH
     private CallbackManager mCallbackManager;
 
+    private final String TAG_FACEBOOK_AUTH = "facebookAuth";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,19 +147,19 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("facebookAuth", "facebook:onSuccess:" + loginResult);
+                Log.d(TAG_FACEBOOK_AUTH, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 loginSuccessful();
             }
 
             @Override
             public void onCancel() {
-                Log.d("facebookAuth", "facebook:onCancel");
+                Log.d(TAG_FACEBOOK_AUTH, "facebook:onCancel");
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("facebookAuth", "facebook:onError", error);
+                Log.d(TAG_FACEBOOK_AUTH, "facebook:onError", error);
             }
         });
 
@@ -169,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param token Facebook token
      */
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d("FacebookAuth", "handleFacebookAccessToken:" + token);
+        Log.d(TAG_FACEBOOK_AUTH, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
@@ -178,12 +179,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("FacebookAuth", "signInWithCredential:success");
+                            Log.d(TAG_FACEBOOK_AUTH, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("FacebookAuth", "signInWithCredential:failure", task.getException());
+                            Log.w(TAG_FACEBOOK_AUTH, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);

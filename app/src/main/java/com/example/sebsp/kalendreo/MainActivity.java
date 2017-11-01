@@ -5,22 +5,17 @@ import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
-
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+public class MainActivity extends LoggedInAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth =  FirebaseAuth.getInstance();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
         mAuth.signOut();
     }
 }
