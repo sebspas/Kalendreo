@@ -108,5 +108,10 @@ public class SignupActivity extends LoggedInAppCompatActivity {
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    protected void redirectIfNotConnected() {
+        // Do nothing expressly
+    }
 }
 

@@ -59,5 +59,6 @@
     <string name="EventTitle">Titre de l\'event</string>
     <string name="CreateEvent">Create an Event</string>
     <string name="log_out">Log out</string>
+    <string name="logo">logo</string>
 
 </resources>
