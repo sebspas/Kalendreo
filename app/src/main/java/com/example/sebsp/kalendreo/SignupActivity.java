@@ -20,31 +20,23 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  * A login screen that offers login via email/password.
  */
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends LoggedInAppCompatActivity {
 
     private EditText inputEmail, inputPassword;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
-
-    public AuthManager authManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        // get the login manager
-        authManager = AuthManager.getInstance();
-
-        // check if the user is logged in, if so redirect to the mainActivity
-        authManager.RedirectIfLoggedIn(this);
-
-        btnSignIn = (Button) findViewById(R.id.sign_in_button);
-        btnSignUp = (Button) findViewById(R.id.sign_up_button);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+        btnSignIn = findViewById(R.id.sign_in_button);
+        btnSignUp = findViewById(R.id.sign_up_button);
+        inputEmail = findViewById(R.id.email);
+        inputPassword = findViewById(R.id.password);
+        progressBar = findViewById(R.id.progressBar);
+        btnResetPassword = findViewById(R.id.btn_reset_password);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +76,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
-                authManager.auth.createUserWithEmailAndPassword(email, password)
+                auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -99,8 +91,8 @@ public class SignupActivity extends AppCompatActivity {
                                 } else {
                                     // we also had the user into the database Firebase
                                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                                    User user = new User(email);
-                                    ref.child("users").child(authManager.auth.getCurrentUser().getUid()).setValue(user);
+                                    User newUser = new User(email);
+                                    ref.child("users").child(user.getUid()).setValue(newUser);
 
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                     finish();
@@ -115,8 +107,6 @@ public class SignupActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
-
-        authManager.RedirectIfLoggedIn(this);
     }
 }
 

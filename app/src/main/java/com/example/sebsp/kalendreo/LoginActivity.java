@@ -28,14 +28,11 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends LoggedInAppCompatActivity {
     // INPUTS
     private EditText inputEmail, inputPassword;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
-
-    // FIREBASE manager
-    public AuthManager authManager;
 
     // FACEBOOK AUTH
     private CallbackManager mCallbackManager;
@@ -46,11 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // get the login manager
-        authManager = AuthManager.getInstance();
-
-        // check if the user is logged in, if so redirect to the mainActivity
-        authManager.RedirectIfLoggedIn(this);
+        // COMMENT THIS LINE TO TEST AUTHENTICATION
+        redirectIfConnected();
 
         // set the view now
         setContentView(R.layout.activity_login);
@@ -95,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 //authenticate user
-                authManager.auth.signInWithEmailAndPassword(email, password)
+                auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -144,7 +138,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG_FACEBOOK_AUTH, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                loginSuccessful();
             }
 
             @Override
@@ -162,42 +155,29 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Handle Facebook success authentication
+     *
      * @param token Facebook token
      */
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG_FACEBOOK_AUTH, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        authManager.auth.signInWithCredential(credential)
+        auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG_FACEBOOK_AUTH, "signInWithCredential:success");
-                            FirebaseUser user = authManager.auth.getCurrentUser();
-                            updateUI(user);
+                            loginSuccessful();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG_FACEBOOK_AUTH, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            Log.d("Auth", "Name : " + user.getDisplayName());
-            // User Connected
-            // user.getDisplayName();
-            // user.getUid()
-        } else {
-            Log.d("Auth", "User not connected");
-            // User Not connected
-        }
     }
 
 
@@ -223,8 +203,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
 
-        authManager.RedirectIfLoggedIn(this);
+    @Override
+    protected void redirectIfNotConnected() {
+        // Do nothing expressly
     }
 }
 

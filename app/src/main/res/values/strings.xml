@@ -58,5 +58,6 @@
     <string name="ValiderEvent">Créer</string>
     <string name="EventTitle">Titre de l\'event</string>
     <string name="CreateEvent">Create an Event</string>
+    <string name="log_out">Log out</string>
 
 </resources>

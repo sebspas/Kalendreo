@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.model;
 
 public class Event {
     public String title;

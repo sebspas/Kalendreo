@@ -1,9 +1,7 @@
 package com.example.sebsp.kalendreo;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,12 +13,13 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.model.Event;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class CreateEvent extends AppCompatActivity {
+public class CreateEvent extends LoggedInAppCompatActivity {
     // Component to select the begining
     private EditText startDatePicker, startTimePicker, titleEvent;
 
@@ -66,7 +65,7 @@ public class CreateEvent extends AppCompatActivity {
         String[] arraySpinner = new String[] {
                 "Fun", "Sérieux", "Travail", "Ultra Important"
         };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
         listCategorie.setAdapter(adapter);
 
@@ -182,7 +181,7 @@ public class CreateEvent extends AppCompatActivity {
                 Event event = new Event(titre, dateDeb, dateEnd, startTime, endTime);
                 // then we add it to the database
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                ref.child("events").child(AuthManager.getInstance().auth.getUid()).push().setValue(event);
+                ref.child("events").child(user.getUid()).push().setValue(event);
 
                 Toast.makeText(getApplicationContext(), "Event Created!", Toast.LENGTH_SHORT).show();
 

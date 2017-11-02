@@ -1,11 +1,11 @@
 package com.example.sebsp.kalendreo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.facebook.login.Login;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends LoggedInAppCompatActivity {
@@ -14,7 +14,7 @@ public class MainActivity extends LoggedInAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth =  FirebaseAuth.getInstance();
+        auth =  FirebaseAuth.getInstance();
 
         Button createEvent = findViewById(R.id.CreateAnEvent);
 
@@ -25,12 +25,21 @@ public class MainActivity extends LoggedInAppCompatActivity {
                 finish();
             }
         });
+
+        Button logOut = findViewById(R.id.LogOut);
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                disconnect();
+            }
+        });
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        //mAuth.signOut();
+//        auth.signOut();
     }
 }
