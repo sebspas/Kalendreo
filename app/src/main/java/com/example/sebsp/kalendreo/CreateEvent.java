@@ -2,6 +2,7 @@ package com.example.sebsp.kalendreo;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -185,7 +186,8 @@ public class CreateEvent extends LoggedInAppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Event Created!", Toast.LENGTH_SHORT).show();
 
-                // then we go back to the previous page
+                // then we go back to the previous mainPage
+                startActivity(new Intent(CreateEvent.this, MainActivity.class));
                 finish();
             }
         });
