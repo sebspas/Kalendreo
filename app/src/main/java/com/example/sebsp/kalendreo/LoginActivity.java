@@ -3,7 +3,6 @@ package com.example.sebsp.kalendreo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,12 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends LoggedInAppCompatActivity {
+public class LoginActivity extends AbstractNotLoggedInActivity {
     // INPUTS
     private EditText inputEmail, inputPassword;
     private ProgressBar progressBar;
@@ -44,7 +42,7 @@ public class LoginActivity extends LoggedInAppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // COMMENT THIS LINE TO TEST AUTHENTICATION
-        redirectIfConnected();
+        redirect();
 
         // set the view now
         setContentView(R.layout.activity_login);
@@ -81,7 +79,7 @@ public class LoginActivity extends LoggedInAppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
+                firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -154,7 +152,7 @@ public class LoginActivity extends LoggedInAppCompatActivity {
         Log.d(TAG_FACEBOOK_AUTH, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        auth.signInWithCredential(credential)
+        firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -180,26 +178,11 @@ public class LoginActivity extends LoggedInAppCompatActivity {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    protected void redirectIfNotConnected() {
-        // Do nothing expressly
-    }
 }
 

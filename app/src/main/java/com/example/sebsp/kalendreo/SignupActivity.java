@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  * A login screen that offers login via email/password.
  */
-public class SignupActivity extends LoggedInAppCompatActivity {
+public class SignupActivity extends AbstractNotLoggedInActivity {
 
     private EditText inputEmail, inputPassword;
     private Button btnSignIn, btnSignUp;
@@ -68,7 +68,7 @@ public class SignupActivity extends LoggedInAppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
-                auth.createUserWithEmailAndPassword(email, password)
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -84,7 +84,7 @@ public class SignupActivity extends LoggedInAppCompatActivity {
                                     // we also had the user into the database Firebase
                                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                                     User newUser = new User(email);
-                                    ref.child("users").child(user.getUid()).setValue(newUser);
+                                    ref.child("users").child(firebaseUser.getUid()).setValue(newUser);
 
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                     finish();
@@ -99,11 +99,6 @@ public class SignupActivity extends LoggedInAppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void redirectIfNotConnected() {
-        // Do nothing expressly
     }
 }
 

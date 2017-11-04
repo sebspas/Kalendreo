@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class CreateEvent extends LoggedInAppCompatActivity {
+public class CreateEventActivity extends AbstractLoggedInActivity {
     // Component to select the begining
     private EditText startDatePicker, startTimePicker, titleEvent;
 
@@ -73,7 +73,7 @@ public class CreateEvent extends LoggedInAppCompatActivity {
         startDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog mDatePicker = new DatePickerDialog(CreateEvent.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog mDatePicker = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         startYear = selectedyear;
@@ -91,7 +91,7 @@ public class CreateEvent extends LoggedInAppCompatActivity {
         startTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEvent.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMin) {
                         startHour = selectedHour;
@@ -108,7 +108,7 @@ public class CreateEvent extends LoggedInAppCompatActivity {
         endDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog mDatePicker = new DatePickerDialog(CreateEvent.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog mDatePicker = new DatePickerDialog(CreateEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         endYear = selectedyear;
@@ -126,7 +126,7 @@ public class CreateEvent extends LoggedInAppCompatActivity {
         endTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEvent.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMin) {
                         endHour = selectedHour;
@@ -182,12 +182,12 @@ public class CreateEvent extends LoggedInAppCompatActivity {
                 Event event = new Event(titre, dateDeb, dateEnd, startTime, endTime);
                 // then we add it to the database
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                ref.child("events").child(user.getUid()).push().setValue(event);
+                ref.child("events").child(firebaseUser.getUid()).push().setValue(event);
 
                 Toast.makeText(getApplicationContext(), "Event Created!", Toast.LENGTH_SHORT).show();
 
                 // then we go back to the previous mainPage
-                startActivity(new Intent(CreateEvent.this, MainActivity.class));
+                startActivity(new Intent(CreateEventActivity.this, MainActivity.class));
                 finish();
             }
         });

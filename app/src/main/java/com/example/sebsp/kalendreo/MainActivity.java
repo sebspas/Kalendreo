@@ -5,24 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.facebook.login.Login;
-import com.google.firebase.auth.FirebaseAuth;
-
-public class MainActivity extends LoggedInAppCompatActivity {
+public class MainActivity extends AbstractLoggedInActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        auth =  FirebaseAuth.getInstance();
 
         Button createEvent = findViewById(R.id.CreateAnEvent);
 
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CreateEvent.class));
-                finish();
+                startActivity(new Intent(MainActivity.this, CreateEventActivity.class));
             }
         });
 
@@ -39,7 +35,5 @@ public class MainActivity extends LoggedInAppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
-//        auth.signOut();
     }
 }
