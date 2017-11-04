@@ -1,0 +1,143 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+
+    android:overScrollMode="never"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.sebsp.kalendreo.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/EventTitle"
+            android:textColor="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/eventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:ems="10"
+            android:hint="@string/EventTitle"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextInput"
+            android:textColorHint="@color/colorTextInput" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/DebutDateHeure"
+            android:textColor="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/SelectStartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/datePicker"
+                android:inputType="date"
+                android:textColor="@color/colorTextInput"
+                android:textColorHint="@color/colorTextInput" />
+
+            <EditText
+                android:id="@+id/SelectStartHours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center_vertical|center_horizontal"
+                android:hint="@string/HourPicker"
+                android:inputType="date"
+                android:textColor="@color/colorTextInput"
+                android:textColorHint="@color/colorTextInput" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/DebutDateHeure"
+            android:textColor="@color/colorAccent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/SelectEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/DateFin"
+                android:inputType="date"
+                android:textColor="@color/colorTextInput"
+                android:textColorHint="@color/colorTextInput" />
+
+            <EditText
+                android:id="@+id/SelectEndHours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center_vertical|center_horizontal"
+                android:hint="@string/EndHour"
+                android:inputType="date"
+                android:textColor="@color/colorTextInput"
+                android:textColorHint="@color/colorTextInput" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/SelectCategorie"
+            android:textColor="@color/colorAccent" />
+
+        <Spinner
+            android:id="@+id/ListCategorie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/CreateEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorAccent"
+            android:padding="16dp"
+            android:text="@string/ValiderEvent" />
+
+    </LinearLayout>
+
+</ScrollView>

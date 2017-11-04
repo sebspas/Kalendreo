@@ -7,23 +7,10 @@
     tools:context="com.example.sebsp.kalendreo.CalendarView">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </android.support.design.widget.AppBarLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -48,21 +35,19 @@
                         android:id="@+id/event_summary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/com_facebook_likeview_internal_padding"
+                        android:background="@color/colorPrimaryDark"
                         android:padding="@dimen/activity_horizontal_margin"
-                        android:layout_marginBottom="@dimen/cardview_default_elevation"
-                        android:layout_marginHorizontal="@dimen/cardview_default_elevation"
-                        android:background="@color/bg_main"
-                        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+                        android:text="@string/no_event_scheduled" />
 
-                    <TextView
+                    <!--TextView
                         android:id="@+id/a"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/com_facebook_likeview_internal_padding"
+                        android:background="@color/colorPrimaryDark"
                         android:padding="@dimen/activity_horizontal_margin"
-                        android:layout_marginBottom="@dimen/cardview_default_elevation"
-                        android:layout_marginHorizontal="@dimen/cardview_default_elevation"
-                        android:background="@color/bg_login"
-                        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+                        android:text="aaaaaaaaaaaaaaaaaaa"/-->
 
                 </LinearLayout>
 
@@ -71,14 +56,16 @@
 
     </LinearLayout>
 
-    <include layout="@layout/content_calendar_view"/>
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_calendar_view" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_event"
+        android:id="@+id/AddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>

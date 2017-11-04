@@ -3,7 +3,6 @@ package com.example.sebsp.kalendreo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -11,42 +10,32 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AbstractNotLoggedInActivity {
 
     private EditText inputEmail, inputPassword;
-    private Button btnSignIn, btnSignUp, btnResetPassword;
+    private Button btnSignIn, btnSignUp;
     private ProgressBar progressBar;
-    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-
-        btnSignIn = (Button) findViewById(R.id.sign_in_button);
-        btnSignUp = (Button) findViewById(R.id.sign_up_button);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
-
-        btnResetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
-            }
-        });
+        btnSignIn = findViewById(R.id.sign_in_button);
+        btnSignUp = findViewById(R.id.sign_up_button);
+        inputEmail = findViewById(R.id.email);
+        inputPassword = findViewById(R.id.password);
+        progressBar = findViewById(R.id.progressBar);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = inputEmail.getText().toString().trim();
+                final String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
@@ -79,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
-                auth.createUserWithEmailAndPassword(email, password)
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -92,12 +81,16 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
+                                    // we also had the user into the database Firebase
+                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                                    User newUser = new User(email);
+                                    ref.child("users").child(firebaseUser.getUid()).setValue(newUser);
+
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                     finish();
                                 }
                             }
                         });
-
             }
         });
     }
