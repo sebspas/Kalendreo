@@ -1,5 +1,6 @@
 package com.example.sebsp.kalendreo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -19,7 +20,7 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        firebaseUser = (firebaseAuth =  FirebaseAuth.getInstance()).getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
         redirect();
     }
 
@@ -28,6 +29,39 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
      */
     protected void redirect() {
         // By default we don't redirect the user
+    }
+
+    /**
+     * Launch the new intent and finish the current activity
+     *
+     * @param intent intent to launch
+     */
+    protected void launchAndClose(Intent intent) {
+        this.startActivity(intent);
+        finish();
+    }
+
+    /**
+     * Fetch the string value passed in the current intent
+     *
+     * @param rid R id of the string resource
+     * @return the String extra value if existing
+     */
+    protected String fetchIntentString(int rid) {
+        return fetchIntentString(getString(rid));
+    }
+
+    /**
+     * Fetch the string value passed in the current intent
+     * @param key Key of the extra
+     * @return the String extra value if existing
+     */
+    protected String fetchIntentString(String key) {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            return bundle.getString(key);
+        }
+        return null;
     }
 
 

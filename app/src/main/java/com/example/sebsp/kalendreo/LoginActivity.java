@@ -35,14 +35,9 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
     // FACEBOOK AUTH
     private CallbackManager mCallbackManager;
 
-    private final String TAG_FACEBOOK_AUTH = "facebookAuth";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // COMMENT THIS LINE TO TEST AUTHENTICATION
-        redirect();
 
         // set the view now
         setContentView(R.layout.activity_login);
@@ -95,7 +90,7 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    loginSuccessful();
+                                    launchAndClose(new Intent(LoginActivity.this, SplashScreenActivity.class));
                                 }
                             }
                         });
@@ -107,67 +102,32 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
     }
 
     /**
-     * Credentials or External App login is Sucessfull: launch the MainActivity
-     */
-    private void loginSuccessful() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    /**
      * Manage the authentication with facebook
      */
     private void facebookAuth() {
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.fb_login_button);
+        final LoginButton loginButton = findViewById(R.id.fb_login_button);
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG_FACEBOOK_AUTH, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                Log.d(Tag.FACEBOOK_AUTH, "facebook:onSuccess:" + loginResult);
+                Intent intent = new Intent(LoginActivity.this, SplashScreenActivity.class);
+                intent.putExtra(getString(R.string.EXTRA_FACEBOOK_AUTH_TOKEN), loginResult.getAccessToken().getToken());
+                launchAndClose(intent);
             }
-
             @Override
             public void onCancel() {
-                Log.d(TAG_FACEBOOK_AUTH, "facebook:onCancel");
+                Log.d(Tag.FACEBOOK_AUTH, "facebook:onCancel");
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d(TAG_FACEBOOK_AUTH, "facebook:onError", error);
+                Log.d(Tag.FACEBOOK_AUTH, "facebook:onError", error);
             }
         });
 
-    }
-
-    /**
-     * Handle Facebook success authentication
-     *
-     * @param token Facebook token
-     */
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG_FACEBOOK_AUTH, "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG_FACEBOOK_AUTH, "signInWithCredential:success");
-                            loginSuccessful();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG_FACEBOOK_AUTH, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 
 

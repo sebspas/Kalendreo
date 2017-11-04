@@ -16,6 +16,12 @@ import com.google.firebase.auth.FirebaseUser;
 public abstract class AbstractLoggedInActivity extends AbstractAppCompatActivity {
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        firebaseUser = firebaseAuth.getCurrentUser();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
     }

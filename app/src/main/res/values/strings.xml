@@ -39,4 +39,9 @@
     <string name="logout_message">You have been disconnected</string>
     <string name="ViewCalendar">View Calendar</string>
 
+
+    <!-- INTENTS EXTRA KEYS -->
+    <string name="EXTRA_FACEBOOK_AUTH_TOKEN">com.example.sebsp.kalendreo.extra.facebook_auth_token</string>
+    <!-- END INTENTS EXTRA KEYS-->
+
 </resources>
