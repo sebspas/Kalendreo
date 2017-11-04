@@ -3,6 +3,7 @@ package com.example.sebsp.kalendreo;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,11 +18,13 @@ public abstract class AbstractNotLoggedInActivity extends AbstractAppCompatActiv
      */
     @Override
     protected void redirect() {
-        if (firebaseAuth != null && firebaseUser != null) {
+        if (firebaseAuth != null && (firebaseUser = firebaseAuth.getCurrentUser()) != null) {
             Intent intent = new Intent(this, MainActivity.class); // Change LoginActivityAbstract to SignupActivityAbstract if you are calling ImageActivity from SignupActivityAbstract
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
+            launchAndClose(intent);
+        } else {
+            // The user is not connected with firebase, we disconnect him from facebook as well
+            LoginManager.getInstance().logOut();
         }
     }
 
