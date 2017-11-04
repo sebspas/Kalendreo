@@ -33,6 +33,7 @@
 
                     <TextView
                         android:id="@+id/no_event"
+                        android:textColor="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/com_facebook_likeview_internal_padding"
@@ -45,10 +46,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/com_facebook_likeview_internal_padding"
-                        android:background="@color/colorAccent"
                         android:padding="@dimen/activity_horizontal_margin"
+                        android:background="@color/colorAccent"
+                        android:textColor="@color/bg_register"
                         android:text="Event Title (Category)\nMM/DD/AAAA - HH:MM to HH:MM"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -68,6 +70,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_horizontal_margin"
         app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:srcCompat="@drawable/plus_symbol" />
 
 </android.support.design.widget.CoordinatorLayout>
