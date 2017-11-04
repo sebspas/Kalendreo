@@ -47,6 +47,11 @@
     <!-- Facebook Auth -->
     <string name="facebook_app_id">2010983615784764</string>
     <string name="fb_login_protocol_scheme">fb2010983615784764</string>
+    <string name="november_2017">November, 2017</string>
+    <string name="previous_month">Previous Month</string>
+    <string name="next_month">Next Month</string>
+    <string name="no_event_scheduled_for_today">No event scheduled for today.</string>
+    <string name="title_activity_calendar_view">CalendarView</string>
     <!-- End Facebook Auth-->
 
 </resources>

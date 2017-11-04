@@ -21,6 +21,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
 
-        mAuth.signOut();
+        //mAuth.signOut();
     }
 }
