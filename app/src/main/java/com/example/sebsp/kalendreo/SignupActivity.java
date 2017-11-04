@@ -83,6 +83,7 @@ public class SignupActivity extends AbstractNotLoggedInActivity {
                                 } else {
                                     // we also had the user into the database Firebase
                                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                                    firebaseUser = firebaseAuth.getCurrentUser();
                                     User newUser = new User(email);
                                     ref.child("users").child(firebaseUser.getUid()).setValue(newUser);
 

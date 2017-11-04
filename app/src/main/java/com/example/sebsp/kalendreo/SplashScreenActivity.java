@@ -42,7 +42,6 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // before making http calls
-
         }
 
         @Override

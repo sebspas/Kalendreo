@@ -67,7 +67,7 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                 "Fun", "Serious", "Work", "Very Important"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, arraySpinner);
+                android.R.layout.simple_spinner_dropdown_item, arraySpinner);
         listCategorie.setAdapter(adapter);
 
         startDatePicker.setOnClickListener(new View.OnClickListener() {
