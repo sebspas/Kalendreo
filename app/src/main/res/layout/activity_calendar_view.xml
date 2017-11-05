@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sebsp.kalendreo.CalendarView">
+    tools:context="com.example.sebsp.kalendreo.CalendarViewActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -50,7 +50,7 @@
                         android:background="@color/colorAccent"
                         android:textColor="@color/bg_register"
                         android:text="Event Title (Category)\nMM/DD/AAAA - HH:MM to HH:MM"
-                        android:visibility="visible" />
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 

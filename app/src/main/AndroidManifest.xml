@@ -75,7 +75,7 @@
 
         <!-- Calendar View Activity -->
         <activity
-            android:name=".CalendarView"
+            android:name=".CalendarViewActivity"
             android:label="@string/title_activity_calendar_view">
         </activity>
         <!-- End Calendar View Activity -->

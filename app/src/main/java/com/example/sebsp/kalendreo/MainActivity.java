@@ -25,7 +25,7 @@ public class MainActivity extends AbstractLoggedInActivity {
         viewCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CalendarView.class));
+                startActivity(new Intent(MainActivity.this, CalendarViewActivity.class));
             }
         });
 

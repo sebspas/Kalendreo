@@ -24,6 +24,8 @@
     <!-- Calendar -->
     <string name="title_activity_calendar_view">CalendarView</string>
     <string name="no_event_scheduled">No event scheduled for this day.</string>
+    <string name="no_event_text">"No event scheduled for the "</string>
+    <string name="some_event_text">" event(s) scheduled for the "</string>
 
     <!-- Create Event -->
     <string name="datePicker">Start Date</string>

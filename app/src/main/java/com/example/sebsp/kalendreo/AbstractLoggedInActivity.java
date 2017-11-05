@@ -48,5 +48,4 @@ public abstract class AbstractLoggedInActivity extends AbstractAppCompatActivity
         LoginManager.getInstance().logOut(); // Facebook log out
         redirect();
     }
-
 }
