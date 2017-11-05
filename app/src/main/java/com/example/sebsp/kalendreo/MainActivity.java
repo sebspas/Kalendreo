@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.sebsp.kalendreo.calendar.CalendarViewActivity;
+import com.example.sebsp.kalendreo.calendar.CreateEventActivity;
+import com.example.sebsp.kalendreo.social.FriendsListActivity;
+
 public class MainActivity extends AbstractLoggedInActivity {
 
     @Override
@@ -34,6 +38,14 @@ public class MainActivity extends AbstractLoggedInActivity {
             @Override
             public void onClick(View view) {
                 disconnect();
+            }
+        });
+
+        Button seeFriends = findViewById(R.id.show_friends);
+        seeFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, FriendsListActivity.class));
             }
         });
     }

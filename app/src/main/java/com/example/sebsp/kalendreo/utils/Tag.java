@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.utils;
 
 /**
  * Created by Gaetan on 04/11/2017.
@@ -6,4 +6,5 @@ package com.example.sebsp.kalendreo;
  */
 public interface Tag  {
     String FACEBOOK_AUTH = "facebook_auth";
+    String FACEBOOK_FRIENDS = "facebook_friends";
 }

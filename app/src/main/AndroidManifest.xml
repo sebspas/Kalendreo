@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sebsp.kalendreo">
+    package="com.example.sebsp.kalendreo"
+    android:installLocation="auto">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -21,16 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <!-- Login Activity -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/app_name" />
         <!-- End Login Activity -->
 
         <!-- Splash Activity -->
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".login.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,13 +41,17 @@
 
         <!-- Signup Activity -->
         <activity
-            android:name=".SignupActivity"
+            android:name=".login.SignupActivity"
             android:label="@string/title_activity_signup" />
         <!-- End Signup Activity -->
 
         <!-- Main Activity-->
         <activity android:name=".MainActivity" />
         <!-- End Main Activity-->
+
+        <!-- FriendsListActivity-->
+        <activity android:name=".social.FriendsListActivity" />
+        <!-- End FriendsListActivity-->
 
         <!-- FacebookAuth Activity -->
         <activity
@@ -75,13 +79,12 @@
 
         <!-- Calendar View Activity -->
         <activity
-            android:name=".CalendarViewActivity"
-            android:label="@string/title_activity_calendar_view">
-        </activity>
+            android:name=".calendar.CalendarViewActivity"
+            android:label="@string/title_activity_calendar_view" />
         <!-- End Calendar View Activity -->
 
         <!-- CreateEvent Activity -->
-        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".calendar.CreateEventActivity" />
         <!-- End CreateEvent Activity -->
 
     </application>

@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
+import com.example.sebsp.kalendreo.AbstractNotLoggedInActivity;
+import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.utils.Tag;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -19,9 +21,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 
 /**
  * A login screen that offers login via email/password.
@@ -108,7 +108,7 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         final LoginButton loginButton = findViewById(R.id.fb_login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

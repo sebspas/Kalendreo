@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.calendar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
+import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -95,10 +97,10 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
                     Map eventMap = (Map) eventSnap.getValue();
 
                     Event event = new Event((String)eventMap.get("title"),
-                                            (String)eventMap.get("dateDeb"),
-                                            (String)eventMap.get("dateFin"),
-                                            (String)eventMap.get("startHour"),
-                                            (String)eventMap.get("endHour"));
+                            (String)eventMap.get("dateDeb"),
+                            (String)eventMap.get("dateFin"),
+                            (String)eventMap.get("startHour"),
+                            (String)eventMap.get("endHour"));
 
                     Log.d("event::",
                             " val: t=" + event.title + " _ dd=" + event.dateDeb + " _ df="
@@ -115,3 +117,4 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
         });
     }
 }
+

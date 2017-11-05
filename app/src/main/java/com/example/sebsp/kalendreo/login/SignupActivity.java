@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.AbstractNotLoggedInActivity;
+import com.example.sebsp.kalendreo.MainActivity;
+import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
