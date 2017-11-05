@@ -1,17 +1,26 @@
 package com.example.sebsp.kalendreo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by Gaetan on 04/11/2017.
@@ -57,8 +66,37 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
             // If the user is not authenticated with facebook, then we launch directly the MainActivity
             if (!userAuthenticatedWithFacebook) {
                 launchMainActivity();
-            } // else, the MainActivity will be launched automatically when the firebase authentication will be done
+            } else { // else, the MainActivity will be launched automatically when the firebase authentication will be done
+                // The user is logged in with Facebook, we can fetch his friends while the firebase authentication is loading
+                fetchFriends();
+            }
+        }
 
+        /**
+         * Load the facebook friends of the user connected
+         */
+        private void fetchFriends() {
+            /* make the API call */
+            new GraphRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    "/me/friends",
+                    null,
+                    HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+                            try {
+                                JSONArray rawName = response.getJSONObject().getJSONArray("data");
+
+                                String keyFile = getString(R.string.SP_FILE_FACEBOOK_FRIENDS);
+                                String keySp = getString(R.string.SP_KEY_FACEBOOK_FRIENDS_JSON);
+                                SplashScreenActivity.this.storeInSharedPreferences(keyFile, keySp, String.valueOf(rawName));
+                            } catch (JSONException e) {
+                                Log.e(Tag.FACEBOOK_FRIENDS, e.toString());
+                            }
+                            Log.e(Tag.FACEBOOK_AUTH,"Friends: " + response.getRawResponse());
+                        }
+                    }
+            ).executeAsync();
         }
 
         /**

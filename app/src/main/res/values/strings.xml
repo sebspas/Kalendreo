@@ -39,9 +39,16 @@
     <string name="logout_message">You have been disconnected</string>
     <string name="ViewCalendar">View Calendar</string>
 
+    <string name="btn_friends">Friends</string>
 
     <!-- INTENTS EXTRA KEYS -->
     <string name="EXTRA_FACEBOOK_AUTH_TOKEN">com.example.sebsp.kalendreo.extra.facebook_auth_token</string>
+    <string name="EXTRA_FACEBOOK_FRIENDS_JSON">com.example.sebsp.kalendreo.extra.facebook_friends_json</string>
     <!-- END INTENTS EXTRA KEYS-->
+
+    <!-- Shared Preferences Files  -->
+    <string name="SP_FILE_FACEBOOK_FRIENDS">com.example.sebsp.kalendreo.facebook_friends</string>
+    <string name="SP_KEY_FACEBOOK_FRIENDS_JSON">com.example.sebsp.kalendreo.facebook_friends_json</string>
+    <!-- END Shared Preferences Files  -->
 
 </resources>

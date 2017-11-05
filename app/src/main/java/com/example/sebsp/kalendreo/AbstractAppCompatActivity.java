@@ -1,6 +1,8 @@
 package com.example.sebsp.kalendreo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -63,6 +65,47 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    /**
+     * Store the data in Shared Preferences
+     * Warning: this will auto commit, do not use if several editions are needed
+     *
+     * @param spFile The SP File where to store the data
+     * @param spKey The SP File Key where to store the data in the SP File
+     * @param value String value to store
+     */
+    protected void storeInSharedPreferences(String spFile, String spKey, String value) {
+        SharedPreferences sharedPref = this.getSharedPreferences(spFile, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(spKey, value);
+        editor.apply();
+    }
+
+    /**
+     * Read from the shared preferences a string
+     *
+     * @param spFile The SP File where to read the data
+     * @param spKey the SP File Key where to read the data in the SP File
+     * @param defaultValue the default value if the SP is not found
+     * @return String the value (or default)
+     */
+    protected String getFromSharedPreferences(String spFile, String spKey, String defaultValue) {
+        SharedPreferences sharedPreferences = this.getSharedPreferences(spFile, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(spKey, defaultValue);
+    }
+
+    /**
+     * @see this.getFromSharedPreferences
+     * @param rIdSpFile R Id of the SP File
+     * @param rIdSpKey R Id of the SP File Key Resource
+     * @param defaultValue Default value
+     * @return @see.this.getFromSharedPreferences
+     */
+    protected String getFromSharedPreferences(int rIdSpFile, int rIdSpKey, String defaultValue) {
+        return this.getFromSharedPreferences(getString(rIdSpFile), getString(rIdSpKey), defaultValue);
+    }
+
+
 
 
     @Override

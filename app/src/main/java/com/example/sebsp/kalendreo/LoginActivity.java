@@ -108,7 +108,7 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         final LoginButton loginButton = findViewById(R.id.fb_login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

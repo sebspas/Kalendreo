@@ -6,4 +6,5 @@ package com.example.sebsp.kalendreo;
  */
 public interface Tag  {
     String FACEBOOK_AUTH = "facebook_auth";
+    String FACEBOOK_FRIENDS = "facebook_friends";
 }
