@@ -1,14 +1,16 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.login;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.AbstractAppCompatActivity;
+import com.example.sebsp.kalendreo.MainActivity;
+import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.utils.Tag;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;

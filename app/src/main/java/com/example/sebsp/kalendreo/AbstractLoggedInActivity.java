@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.login.LoginActivity;
 import com.facebook.login.LoginManager;
 
 /**

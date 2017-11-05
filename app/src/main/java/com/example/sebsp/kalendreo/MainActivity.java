@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.sebsp.kalendreo.calendar.CalendarViewActivity;
+import com.example.sebsp.kalendreo.calendar.CreateEventActivity;
+import com.example.sebsp.kalendreo.social.FriendsListActivity;
+
 public class MainActivity extends AbstractLoggedInActivity {
 
     @Override
@@ -25,7 +29,7 @@ public class MainActivity extends AbstractLoggedInActivity {
         viewCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CalendarView.class));
+                startActivity(new Intent(MainActivity.this, CalendarViewActivity.class));
             }
         });
 

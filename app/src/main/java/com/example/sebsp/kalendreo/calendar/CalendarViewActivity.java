@@ -1,18 +1,17 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.calendar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-public class CalendarView extends AppCompatActivity {
+import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
+import com.example.sebsp.kalendreo.R;
+
+public class CalendarViewActivity extends AbstractLoggedInActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class CalendarView extends AppCompatActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CalendarView.this, CreateEventActivity.class));
+                startActivity(new Intent(CalendarViewActivity.this, CreateEventActivity.class));
             }
         });
 

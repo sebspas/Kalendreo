@@ -24,13 +24,13 @@
 
         <!-- Login Activity -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/app_name" />
         <!-- End Login Activity -->
 
         <!-- Splash Activity -->
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".login.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
 
         <!-- Signup Activity -->
         <activity
-            android:name=".SignupActivity"
+            android:name=".login.SignupActivity"
             android:label="@string/title_activity_signup" />
         <!-- End Signup Activity -->
 
@@ -50,7 +50,7 @@
         <!-- End Main Activity-->
 
         <!-- FriendsListActivity-->
-        <activity android:name=".FriendsListActivity" />
+        <activity android:name=".social.FriendsListActivity" />
         <!-- End FriendsListActivity-->
 
         <!-- FacebookAuth Activity -->
@@ -79,12 +79,12 @@
 
         <!-- Calendar View Activity -->
         <activity
-            android:name=".CalendarView"
+            android:name=".calendar.CalendarViewActivity"
             android:label="@string/title_activity_calendar_view" />
         <!-- End Calendar View Activity -->
 
         <!-- CreateEvent Activity -->
-        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".calendar.CreateEventActivity" />
         <!-- End CreateEvent Activity -->
 
     </application>

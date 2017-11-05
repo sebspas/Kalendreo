@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.utils;
 
 /**
  * Created by Gaetan on 04/11/2017.

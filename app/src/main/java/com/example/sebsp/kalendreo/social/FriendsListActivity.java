@@ -1,9 +1,12 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.social;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
+import com.example.sebsp.kalendreo.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
