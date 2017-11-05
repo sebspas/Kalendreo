@@ -49,6 +49,10 @@
         <activity android:name=".MainActivity" />
         <!-- End Main Activity-->
 
+        <!-- FriendsListActivity-->
+        <activity android:name=".FriendsListActivity" />
+        <!-- End FriendsListActivity-->
+
         <!-- FacebookAuth Activity -->
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -76,8 +80,7 @@
         <!-- Calendar View Activity -->
         <activity
             android:name=".CalendarView"
-            android:label="@string/title_activity_calendar_view">
-        </activity>
+            android:label="@string/title_activity_calendar_view" />
         <!-- End Calendar View Activity -->
 
         <!-- CreateEvent Activity -->

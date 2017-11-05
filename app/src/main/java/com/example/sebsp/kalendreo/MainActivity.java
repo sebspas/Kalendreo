@@ -36,6 +36,14 @@ public class MainActivity extends AbstractLoggedInActivity {
                 disconnect();
             }
         });
+
+        Button seeFriends = findViewById(R.id.show_friends);
+        seeFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, FriendsListActivity.class));
+            }
+        });
     }
 
     @Override
