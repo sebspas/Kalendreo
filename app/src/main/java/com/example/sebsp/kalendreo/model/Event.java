@@ -16,4 +16,10 @@ public class Event {
         this.startHour = startHour;
         this.endHour = endHour;
     }
+
+    @Override
+    public String toString(){
+        return "\n" + this.title + "\nstarts on " + this.dateDeb + ", ends on "
+                + this.dateFin + "\nfrom " + this.startHour + " to " + this.endHour +"\n";
+    }
 }

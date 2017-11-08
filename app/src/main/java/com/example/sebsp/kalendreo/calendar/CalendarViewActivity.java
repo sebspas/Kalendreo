@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
@@ -18,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
 public class CalendarViewActivity extends AbstractLoggedInActivity {
@@ -28,10 +31,9 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_view);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         createEventList();
+        firstDayEventDisplay();
 
         FloatingActionButton createEvent = findViewById(R.id.AddEvent);
         createEvent.setOnClickListener(new View.OnClickListener() {
@@ -47,40 +49,51 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
         calendarView.setOnDateChangeListener(new android.widget.CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull android.widget.CalendarView calendarView, int year, int month, int day) {
-                TextView nEvent = findViewById(R.id.no_event);
-                TextView summary = findViewById(R.id.event_summary);
-
                 String selectedDay = year + "/" + (++month) + "/" + day;
-
-                String eventForTheDay = "";
-                int numberOfEvent = 0;
-
-                for (Event event : listOfEvents){
-                    // check if there is an event for the day
-                    if(event.dateDeb.equals(selectedDay)){
-                        numberOfEvent++;
-
-                        Log.d("calendar::", "EVENT FOR TODAY");
-                        eventForTheDay = event.title + "\nstarts on " + event.dateDeb + ", ends on "
-                                + event.dateFin + "\nfrom " + event.startHour + " to " + event.endHour;
-                    }
-                }
-
-                if (numberOfEvent > 0){
-                    String msg = numberOfEvent + getString(R.string.some_event_text) + selectedDay;
-                    nEvent.setText(msg);
-
-                    summary.setVisibility(View.VISIBLE);
-                    summary.setText(eventForTheDay);
-                }
-                else {
-                    String msg = getString(R.string.no_event_text) + selectedDay;
-                    nEvent.setText(msg);
-
-                    summary.setVisibility(View.INVISIBLE);
-                }
+                displayEventList(selectedDay);
             }
         });
+    }
+
+    protected void firstDayEventDisplay(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String todayDate =  year + "/" + month + "/" + day;
+        displayEventList(todayDate);
+    }
+
+    protected void displayEventList(String selectedDay){
+        TextView nEvent = findViewById(R.id.no_event);
+        ListView calendarList = findViewById(R.id.calendar_list_view);
+
+        int numberOfEvent = 0;
+        ArrayList<String> todayEvent = new ArrayList<>();
+
+        for (Event event : listOfEvents){
+            // check if there is an event for the day
+            if(event.dateDeb.equals(selectedDay)){
+                numberOfEvent++;
+                todayEvent.add(event.toString());
+                //Log.d("calendar::", "EVENT FOR TODAY");
+            }
+        }
+
+        if (numberOfEvent > 0){
+            String msg = numberOfEvent + getString(R.string.some_event_text) + selectedDay;
+            nEvent.setText(msg);
+
+            ArrayAdapter adapter = new ArrayAdapter<>(CalendarViewActivity.this, android.R.layout.simple_list_item_1, todayEvent);
+            calendarList.setAdapter(adapter);
+            calendarList.setVisibility(View.VISIBLE);
+        }
+        else {
+            String msg = getString(R.string.no_event_text) + selectedDay;
+            nEvent.setText(msg);
+
+            calendarList.setVisibility(View.INVISIBLE);
+        }
     }
 
     protected void createEventList(){
