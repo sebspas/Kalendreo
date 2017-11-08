@@ -18,6 +18,7 @@ import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
+import com.example.sebsp.kalendreo.utils.ReminderManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -188,6 +189,9 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                 ref.child("events").child(firebaseUser.getUid()).push().setValue(event);
 
                 Toast.makeText(getApplicationContext(), "Event Created!", Toast.LENGTH_SHORT).show();
+
+                // add a reminder for this event
+                ReminderManager.createAReminder(CreateEventActivity.this, event);
 
                 // then we go back to the previous mainPage
                 startActivity(new Intent(CreateEventActivity.this, MainActivity.class));
