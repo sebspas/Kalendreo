@@ -47,7 +47,6 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
 
         private boolean userAuthenticatedWithFacebook = false;
 
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
