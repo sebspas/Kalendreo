@@ -181,9 +181,10 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     return;
                 }
 
+                String categorie = listCategorie.getSelectedItem().toString();
 
                 // then if all is ok we create a new Event()
-                Event event = new Event(titre, dateDeb, dateEnd, startTime, endTime);
+                Event event = new Event(titre, dateDeb, dateEnd, startTime, endTime, categorie);
                 // then we add it to the database
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 ref.child("events").child(firebaseUser.getUid()).push().setValue(event);

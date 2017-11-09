@@ -4,35 +4,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.model.AllEvents;
 import com.example.sebsp.kalendreo.model.Event;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Map;
 
 public class CalendarViewActivity extends AbstractLoggedInActivity {
-
-    protected ArrayList<Event> listOfEvents = new ArrayList<>();
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_view);
 
-        createEventList();
+        //TODO move this to the splash screen activity
+        // get all the events
+        AllEvents.getInstance();
+        //createEventList();
         firstDayEventDisplay();
 
         FloatingActionButton createEvent = findViewById(R.id.AddEvent);
@@ -68,14 +64,18 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
         TextView nEvent = findViewById(R.id.no_event);
         ListView calendarList = findViewById(R.id.calendar_list_view);
 
-        int numberOfEvent = 0;
-        ArrayList<String> todayEvent = new ArrayList<>();
 
-        for (Event event : listOfEvents){
+
+        int numberOfEvent = 0;
+        final ArrayList<String> todayEventString = new ArrayList<>();
+        final ArrayList<Event> todayEvents = new ArrayList<>();
+
+        for (Event event :  AllEvents.getInstance().listOfEvents){
             // check if there is an event for the day
             if(event.dateDeb.equals(selectedDay)){
                 numberOfEvent++;
-                todayEvent.add(event.toString());
+                todayEventString.add(event.toString());
+                todayEvents.add(event);
                 //Log.d("calendar::", "EVENT FOR TODAY");
             }
         }
@@ -84,9 +84,22 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
             String msg = numberOfEvent + getString(R.string.some_event_text) + selectedDay;
             nEvent.setText(msg);
 
-            ArrayAdapter adapter = new ArrayAdapter<>(CalendarViewActivity.this, android.R.layout.simple_list_item_1, todayEvent);
+            final ArrayAdapter adapter = new ArrayAdapter<>(CalendarViewActivity.this,
+                    android.R.layout.simple_list_item_1, todayEventString);
             calendarList.setAdapter(adapter);
             calendarList.setVisibility(View.VISIBLE);
+
+            calendarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    String key = String.valueOf(AllEvents.getInstance()
+                            .listOfEvents.indexOf(todayEvents.get(i)));
+                    //Toast.makeText(CalendarViewActivity.this, key, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CalendarViewActivity.this, EventView.class);
+                    intent.putExtra("EventId", key);
+                    startActivity(intent);
+                }
+            });
         }
         else {
             String msg = getString(R.string.no_event_text) + selectedDay;
@@ -94,40 +107,6 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
 
             calendarList.setVisibility(View.INVISIBLE);
         }
-    }
-
-    protected void createEventList(){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("events").child(firebaseUser.getUid());
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Iterable<DataSnapshot> eventIterable = dataSnapshot.getChildren();
-
-                for(DataSnapshot eventSnap : eventIterable) {
-
-                    Map eventMap = (Map) eventSnap.getValue();
-
-                    Event event = new Event((String)eventMap.get("title"),
-                            (String)eventMap.get("dateDeb"),
-                            (String)eventMap.get("dateFin"),
-                            (String)eventMap.get("startHour"),
-                            (String)eventMap.get("endHour"));
-
-                    Log.d("event::",
-                            " val: t=" + event.title + " _ dd=" + event.dateDeb + " _ df="
-                                    + event.dateFin + " _ sh=" + event.startHour + " _ eh=" + event.endHour);
-
-                    listOfEvents.add(event);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
     }
 }
 
