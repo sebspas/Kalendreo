@@ -73,15 +73,26 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
             // check if there is an event for the day
             if(event.dateDeb.equals(selectedDay)){
                 numberOfEvent++;
-                todayEventString.add(event.toString());
-                todayEvents.add(event);
-                //Log.d("calendar::", "EVENT FOR TODAY");
+
+                int index;
+                for (index = 0; index < todayEvents.size(); index++){
+
+                    if (todayEvents.get(index).startHour.compareTo(event.startHour) >= 0){
+                        break;
+                    }
+                }
+
+                todayEventString.add(index, event.toString());
+                todayEvents.add(index, event);
+
             }
         }
 
         if (numberOfEvent > 0){
             String msg = numberOfEvent + getString(R.string.some_event_text) + selectedDay;
             nEvent.setText(msg);
+
+            //orderTodayEvents(numberOfEvent, todayEvents);
 
             final ArrayAdapter adapter = new ArrayAdapter<>(CalendarViewActivity.this,
                     android.R.layout.simple_list_item_1, todayEventString);
@@ -107,5 +118,32 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
             calendarList.setVisibility(View.INVISIBLE);
         }
     }
+
+    /*
+    protected void orderTodayEvents(int numEvents, ArrayList<Event> todayEvents){
+
+        if (numEvents == 1) {
+            return;
+        }
+
+        // bubble sort on the list
+        boolean swapped = true;
+        int j = 0;
+
+        while (swapped) {
+            swapped = false;
+            j++;
+
+            for (int i = 0; i < todayEvents.size() - j; i++) {
+                // if (startHour(1) > startHour(2))
+                if (todayEvents.get(i).startHour.compareTo(todayEvents.get(i+1).startHour) > 0) {
+
+                    todayEvents.add(i, todayEvents.get(i+1));
+                    swapped = true;
+                }
+            }
+        }
+    }
+    */
 }
 
