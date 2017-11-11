@@ -15,7 +15,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
-import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.AllEvents;
 import com.example.sebsp.kalendreo.model.Event;
@@ -25,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class CreateEventActivity extends AbstractLoggedInActivity {
     // Component to select the begining
@@ -120,6 +118,25 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
             titleEvent.setText(currEvent.title);
             listCategorie.setSelection(arraySpinner.indexOf(currEvent.categorie));
             create.setText("Edit event");
+
+
+            String[] splitStartDate = currEvent.dateDeb.split("/");
+            startYear = Integer.parseInt(splitStartDate[0]);
+            startMonth = Integer.parseInt(splitStartDate[1]);
+            startDay = Integer.parseInt(splitStartDate[2]);
+
+            String[] splitEndDate = currEvent.dateFin.split("/");
+            endYear = Integer.parseInt(splitEndDate[0]);
+            endMonth = Integer.parseInt(splitEndDate[1]);
+            endDay = Integer.parseInt(splitEndDate[2]);
+
+            String[] splitStartTime = currEvent.startHour.split(":");
+            startHour = Integer.parseInt(splitStartTime[0]);
+            startMin = Integer.parseInt(splitStartTime[1]);
+
+            String[] splitEndTime = currEvent.endHour.split(":");
+            endHour = Integer.parseInt(splitEndTime[0]);
+            endMin = Integer.parseInt(splitEndTime[1]);
 
             // we say we are updating not creating (used in the database part)
             update = true;
