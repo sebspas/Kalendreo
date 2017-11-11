@@ -87,7 +87,8 @@ public class MainActivity extends AbstractLoggedInActivity {
                             (String)eventMap.get("dateDeb"),
                             (String)eventMap.get("dateFin"),
                             (String)eventMap.get("startHour"),
-                            (String)eventMap.get("endHour"));
+                            (String)eventMap.get("endHour"),
+                            (String)eventMap.get("categorie"));
 
                     Log.d("event::",
                             " val: t=" + event.title + " _ dd=" + event.dateDeb + " _ df="

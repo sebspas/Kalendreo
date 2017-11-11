@@ -51,7 +51,9 @@
     <!-- Shared Preferences Files  -->
     <string name="SP_FILE_FACEBOOK_FRIENDS">com.example.sebsp.kalendreo.facebook_friends</string>
     <string name="SP_KEY_FACEBOOK_FRIENDS_JSON">com.example.sebsp.kalendreo.facebook_friends_json</string>
-    <string name="title_activity_my_events">My Events</string>
     <!-- END Shared Preferences Files  -->
+
+    <string name="title_activity_my_events">My Events</string>
+    <string name="title_activity_event_view">EventView</string>
 
 </resources>

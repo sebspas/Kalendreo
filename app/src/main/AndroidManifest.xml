@@ -105,6 +105,11 @@
         <activity
             android:name=".calendar.MyEventsActivity"
             android:label="@string/title_activity_my_events"/>
+
+        <activity
+            android:name=".calendar.EventView"
+            android:label="@string/title_activity_event_view"/>
+
     </application>
 
 </manifest>
