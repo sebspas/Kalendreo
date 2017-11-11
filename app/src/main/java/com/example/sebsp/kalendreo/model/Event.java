@@ -24,7 +24,7 @@ public class Event {
 
     @Override
     public String toString(){
-        return "\n" + this.title + "\nstarts on " + this.dateDeb + ", ends on "
+        return "\n" + this.title + "\n" + this.dateDeb + " - "
                 + this.dateFin + "\nfrom " + this.startHour + " to " + this.endHour + "\n";
     }
 
