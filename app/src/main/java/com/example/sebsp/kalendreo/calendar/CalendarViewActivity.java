@@ -26,7 +26,6 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_view);
 
-        Log.d("calendar::", "on_create");
         //TODO move this to the splash screen activity
         // get all the events
         AllEvents.getInstance();

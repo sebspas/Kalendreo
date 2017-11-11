@@ -7,6 +7,9 @@ import android.view.View;
 
 import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.model.AllEvents;
+
+import java.util.Calendar;
 
 public class MyEventsActivity extends AbstractLoggedInActivity {
 
@@ -22,6 +25,20 @@ public class MyEventsActivity extends AbstractLoggedInActivity {
                 startActivity(new Intent(MyEventsActivity.this, CreateEventActivity.class));
             }
         });
+
+        // get all the events
+        AllEvents.getInstance();
+
+        String today = getTodayDate();
+
+
     }
 
+    protected String getTodayDate(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return year + "/" + month + "/" + day;
+    }
 }

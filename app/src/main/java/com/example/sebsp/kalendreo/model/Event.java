@@ -28,7 +28,7 @@ public class Event {
                 + this.dateFin + "\nfrom " + this.startHour + " to " + this.endHour + "\n";
     }
 
-    // we need to override equals() and hashCode() for the contains() in AllEvents class
+    // USED TO need to override equals() and hashCode() for the contains() in AllEvents class
     @Override
     public boolean equals(Object o) {
 
@@ -66,5 +66,4 @@ public class Event {
         return result;
     }
     */
-
 }

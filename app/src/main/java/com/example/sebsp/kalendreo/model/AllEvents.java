@@ -32,7 +32,7 @@ public class AllEvents {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("events")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.orderByChild("dateDeb").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listOfEvents.clear();
@@ -55,8 +55,16 @@ public class AllEvents {
 
                     listOfEvents.add(event);
                     listOfEventsFirebaseKey.add(eventSnap.getKey());
-
                 }
+
+                /*
+                String debug = "[ ";
+                for (Event e : listOfEvents) {
+                    debug += e.title + " : " + e.dateDeb + " ! ";
+                }
+                debug += "]";
+                Log.d("all_events::", debug);
+                */
             }
 
             @Override
