@@ -74,6 +74,7 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
             if(event.dateDeb.equals(selectedDay)){
                 numberOfEvent++;
 
+                // order events by starting hour
                 int index;
                 for (index = 0; index < todayEvents.size(); index++){
 
@@ -81,7 +82,6 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
                         break;
                     }
                 }
-
                 todayEventString.add(index, event.toString());
                 todayEvents.add(index, event);
 
@@ -91,8 +91,6 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
         if (numberOfEvent > 0){
             String msg = numberOfEvent + getString(R.string.some_event_text) + selectedDay;
             nEvent.setText(msg);
-
-            //orderTodayEvents(numberOfEvent, todayEvents);
 
             final ArrayAdapter adapter = new ArrayAdapter<>(CalendarViewActivity.this,
                     android.R.layout.simple_list_item_1, todayEventString);
@@ -104,7 +102,7 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     String key = String.valueOf(AllEvents.getInstance()
                             .listOfEvents.indexOf(todayEvents.get(i)));
-                    //Toast.makeText(CalendarViewActivity.this, key, Toast.LENGTH_LONG).show();
+
                     Intent intent = new Intent(CalendarViewActivity.this, EventView.class);
                     intent.putExtra("EventId", key);
                     startActivity(intent);
@@ -118,32 +116,5 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
             calendarList.setVisibility(View.INVISIBLE);
         }
     }
-
-    /*
-    protected void orderTodayEvents(int numEvents, ArrayList<Event> todayEvents){
-
-        if (numEvents == 1) {
-            return;
-        }
-
-        // bubble sort on the list
-        boolean swapped = true;
-        int j = 0;
-
-        while (swapped) {
-            swapped = false;
-            j++;
-
-            for (int i = 0; i < todayEvents.size() - j; i++) {
-                // if (startHour(1) > startHour(2))
-                if (todayEvents.get(i).startHour.compareTo(todayEvents.get(i+1).startHour) > 0) {
-
-                    todayEvents.add(i, todayEvents.get(i+1));
-                    swapped = true;
-                }
-            }
-        }
-    }
-    */
 }
 
