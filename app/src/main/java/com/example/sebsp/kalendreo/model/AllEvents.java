@@ -1,5 +1,7 @@
 package com.example.sebsp.kalendreo.model;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,7 +53,9 @@ public class AllEvents {
                             " val: t=" + event.title + " _ dd=" + event.dateDeb + " _ df="
                                     + event.dateFin + " _ sh=" + event.startHour + " _ eh=" + event.endHour);*/
 
-                    listOfEvents.add(event);
+                    if (!listOfEvents.contains(event)){
+                        listOfEvents.add(event);
+                    }
                 }
             }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_view);
 
+        Log.d("calendar::", "on_create");
         //TODO move this to the splash screen activity
         // get all the events
         AllEvents.getInstance();
@@ -64,10 +66,8 @@ public class CalendarViewActivity extends AbstractLoggedInActivity {
         TextView nEvent = findViewById(R.id.no_event);
         ListView calendarList = findViewById(R.id.calendar_list_view);
 
-
-
         int numberOfEvent = 0;
-        final ArrayList<String> todayEventString = new ArrayList<>();
+        ArrayList<String> todayEventString = new ArrayList<>();
         final ArrayList<Event> todayEvents = new ArrayList<>();
 
         for (Event event :  AllEvents.getInstance().listOfEvents){
