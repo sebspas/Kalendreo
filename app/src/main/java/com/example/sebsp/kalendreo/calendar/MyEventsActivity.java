@@ -2,13 +2,13 @@ package com.example.sebsp.kalendreo.calendar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
+import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
 
-public class MyEventsActivity extends Activity {
+public class MyEventsActivity extends AbstractLoggedInActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

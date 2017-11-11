@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.sebsp.kalendreo.calendar.CalendarViewActivity;
 import com.example.sebsp.kalendreo.calendar.CreateEventActivity;
+import com.example.sebsp.kalendreo.calendar.MyEventsActivity;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.social.FriendsListActivity;
 import com.example.sebsp.kalendreo.utils.ReminderManager;
@@ -33,6 +34,14 @@ public class MainActivity extends AbstractLoggedInActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CreateEventActivity.class));
+            }
+        });
+
+        Button viewMyEvent = findViewById(R.id.MyEvents);
+        viewMyEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MyEventsActivity.class));
             }
         });
 

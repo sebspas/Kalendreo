@@ -21,6 +21,16 @@
             tools:layout_editor_absoluteY="56dp" />
 
         <Button
+            android:id="@+id/MyEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/colorAccent"
+            android:text="@string/title_activity_my_events"
+            tools:layout_editor_absoluteX="29dp"
+            tools:layout_editor_absoluteY="56dp" />
+
+        <Button
             android:id="@+id/ViewCalendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
