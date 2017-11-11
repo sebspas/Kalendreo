@@ -151,12 +151,12 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         startYear = selectedyear;
-                        startMonth = selectedmonth;
+                        startMonth = selectedmonth+1;
                         startDay =selectedday;
 
-                        startDatePicker.setText(selectedyear + "/" + (startMonth+1) + "/" + selectedday);
+                        startDatePicker.setText(selectedyear + "/" + startMonth + "/" + selectedday);
                     }
-                }, startYear, startMonth, startDay);
+                }, startYear, startMonth-1, startDay);
                 mDatePicker.setTitle("Select date");
                 mDatePicker.show();
             }
@@ -186,12 +186,12 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         endYear = selectedyear;
-                        endMonth = selectedmonth;
+                        endMonth = selectedmonth+1;
                         endDay =selectedday;
 
-                        endDatePicker.setText(endYear  + "/" + (endMonth+1) + "/" + endDay);
+                        endDatePicker.setText(endYear  + "/" + endMonth + "/" + endDay);
                     }
-                }, endYear, endMonth, endDay);
+                }, endYear, endMonth-1, endDay);
                 mDatePicker.setTitle("Select date");
                 mDatePicker.show();
             }
