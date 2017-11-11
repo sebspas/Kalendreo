@@ -79,7 +79,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/DebutDateHeure"
+            android:layout_margin="5dp"
+            android:text="@string/FinDateHeure"
             android:textColor="@color/colorAccent" />
 
         <LinearLayout

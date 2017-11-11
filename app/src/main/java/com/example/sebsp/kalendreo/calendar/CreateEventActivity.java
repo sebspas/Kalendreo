@@ -17,12 +17,15 @@ import android.widget.Toast;
 import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.model.AllEvents;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.ReminderManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class CreateEventActivity extends AbstractLoggedInActivity {
     // Component to select the begining
@@ -41,6 +44,31 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
     private int endYear, endMonth, endDay;
     private int endHour, endMin;
 
+    // bool to say if we update
+    private boolean update = false;
+
+    private String cleanTime(String time) {
+        String[] timeSplit = time.split(":");
+        String hour = timeSplit[0];
+        String min = timeSplit[1];
+
+        String ret = "";
+
+        if (hour.length() == 1) {
+            ret += "0" + hour;
+        } else {
+            ret += hour;
+        }
+
+        if (min.length() == 1) {
+            ret += ":0" + min;
+        } else {
+            ret += ":" + min;
+        }
+
+        return ret;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +82,20 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
 
         titleEvent = findViewById(R.id.eventTitle);
 
+        Button create = findViewById(R.id.CreateEvent);
+
+        //setup the categorie list
+        listCategorie = findViewById(R.id.ListCategorie);
+        //TODO change this to get the categorie from a proper file or database
+        ArrayList<String> arraySpinner = new ArrayList<>();
+        arraySpinner.add("Fun");
+        arraySpinner.add("Serious");
+        arraySpinner.add("Work");
+        arraySpinner.add("Very Important");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, arraySpinner);
+        listCategorie.setAdapter(adapter);
+
         //To show current date in the datepicker
         Calendar mcurrentDate=Calendar.getInstance();
         startYear = endYear = mcurrentDate.get(Calendar.YEAR);
@@ -63,16 +105,27 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
         Calendar mcurrentTime = Calendar.getInstance();
         startHour = endHour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         startMin = endMin = mcurrentTime.get(Calendar.MINUTE);
+        setTitle("Create a new Event");
+        // if we come from EventView
+        if(getIntent().getStringExtra("EventId") != null) {
+            // get the event data from the db
+            Event currEvent = AllEvents.getInstance().listOfEvents.get(
+                    Integer.parseInt(getIntent().getStringExtra("EventId")));
 
-        //setup the categorie list
-        listCategorie = findViewById(R.id.ListCategorie);
-        //TODO change this to get the categorie from a proper file or database
-        String[] arraySpinner = new String[] {
-                "Fun", "Serious", "Work", "Very Important"
-        };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, arraySpinner);
-        listCategorie.setAdapter(adapter);
+            // then we set the value of the different field
+            startDatePicker.setText(currEvent.dateDeb);
+            startTimePicker.setText(currEvent.startHour);
+            endDatePicker.setText(currEvent.dateFin);
+            endTimePicker.setText(currEvent.endHour);
+            titleEvent.setText(currEvent.title);
+            listCategorie.setSelection(arraySpinner.indexOf(currEvent.categorie));
+            create.setText("Edit event");
+
+            // we say we are updating not creating (used in the database part)
+            update = true;
+
+            setTitle("Edit - " + currEvent.title);
+        }
 
         startDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,10 +134,10 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         startYear = selectedyear;
-                        startMonth = selectedmonth+1;
+                        startMonth = selectedmonth;
                         startDay =selectedday;
 
-                        startDatePicker.setText(selectedyear + "/" + startMonth + "/" + selectedday);
+                        startDatePicker.setText(selectedyear + "/" + (startMonth+1) + "/" + selectedday);
                     }
                 }, startYear, startMonth, startDay);
                 mDatePicker.setTitle("Select date");
@@ -101,7 +154,7 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                         startHour = selectedHour;
                         startMin = selectedMin;
 
-                        startTimePicker.setText(selectedHour + ":" + selectedMin);
+                        startTimePicker.setText(cleanTime(selectedHour + ":" + selectedMin));
                     }
                 }, startHour, startMin, true);
                 timePickerDialog.setTitle("Select Time");
@@ -116,10 +169,10 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         endYear = selectedyear;
-                        endMonth = selectedmonth+1;
+                        endMonth = selectedmonth;
                         endDay =selectedday;
 
-                        endDatePicker.setText(endYear  + "/" + endMonth + "/" + endDay);
+                        endDatePicker.setText(endYear  + "/" + (endMonth+1) + "/" + endDay);
                     }
                 }, endYear, endMonth, endDay);
                 mDatePicker.setTitle("Select date");
@@ -136,17 +189,13 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                         endHour = selectedHour;
                         endMin = selectedMin;
 
-                        endTimePicker.setText(selectedHour + ":" + selectedMin);
+                        endTimePicker.setText(cleanTime(selectedHour + ":" + selectedMin));
                     }
                 }, endHour, endMin, true);
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
             }
         });
-
-
-        // create the event inside the db
-        Button create = findViewById(R.id.CreateEvent);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,19 +224,39 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     return;
                 }
 
-                String endTime = startTimePicker.getText().toString();
+
+                String endTime = endTimePicker.getText().toString();
                 if (TextUtils.isEmpty(endTime)) {
-                    Toast.makeText(getApplicationContext(), "Enter a valid start time!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter a valid end time!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String categorie = listCategorie.getSelectedItem().toString();
 
+                // we check that the date of begining is before the date of end
+                Calendar eventStartDate = Calendar.getInstance();
+                eventStartDate.set(startYear, startMonth, startDay, startHour, startMin);
+                Calendar eventEndDate = Calendar.getInstance();
+                eventEndDate.set(endYear, endMonth, endDay, endHour, endMin);
+                if (eventStartDate.getTimeInMillis() >= eventEndDate.getTimeInMillis()) {
+                    Toast.makeText(getApplicationContext(), "The start date must be before the end date!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // then if all is ok we create a new Event()
                 Event event = new Event(titre, dateDeb, dateEnd, startTime, endTime, categorie);
+
                 // then we add it to the database
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                ref.child("events").child(firebaseUser.getUid()).push().setValue(event);
+                if (update) {
+                    ref.child("events").child(firebaseUser.getUid()).child(
+                            AllEvents.getInstance().listOfEventsFirebaseKey
+                                    .get(Integer.parseInt(getIntent().getStringExtra("EventId"))))
+                    .setValue(event);
+                } else {
+                    ref.child("events").child(firebaseUser.getUid()).push().setValue(event);
+                }
+
 
                 Toast.makeText(getApplicationContext(), "Event Created!", Toast.LENGTH_SHORT).show();
 
@@ -195,7 +264,7 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                 ReminderManager.createAReminder(CreateEventActivity.this, event);
 
                 // then we go back to the previous mainPage
-                startActivity(new Intent(CreateEventActivity.this, MainActivity.class));
+                startActivity(new Intent(CreateEventActivity.this, CalendarViewActivity.class));
                 finish();
             }
         });

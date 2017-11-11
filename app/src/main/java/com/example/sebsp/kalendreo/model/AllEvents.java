@@ -22,6 +22,8 @@ public class AllEvents {
 
     public ArrayList<Event> listOfEvents = new ArrayList<>();
 
+    public ArrayList<String> listOfEventsFirebaseKey = new ArrayList<>();
+
     private AllEvents() {
         createEventList();
     }
@@ -33,6 +35,8 @@ public class AllEvents {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                listOfEvents.clear();
+                listOfEventsFirebaseKey.clear();
 
                 Iterable<DataSnapshot> eventIterable = dataSnapshot.getChildren();
 
@@ -49,13 +53,9 @@ public class AllEvents {
                             (String)eventMap.get("endHour"),
                             (String)eventMap.get("categorie"));
 
-                    /*Log.d("event::",
-                            " val: t=" + event.title + " _ dd=" + event.dateDeb + " _ df="
-                                    + event.dateFin + " _ sh=" + event.startHour + " _ eh=" + event.endHour);*/
+                    listOfEvents.add(event);
+                    listOfEventsFirebaseKey.add(eventSnap.getKey());
 
-                    if (!listOfEvents.contains(event)){
-                        listOfEvents.add(event);
-                    }
                 }
             }
 

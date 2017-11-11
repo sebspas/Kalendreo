@@ -31,6 +31,7 @@
     <string name="datePicker">Start Date</string>
     <string name="HourPicker">00:00</string>
     <string name="DebutDateHeure">Starting Day and Hour</string>
+    <string name="FinDateHeure">Ending Day and Hour</string>
     <string name="DateFin">End Date</string>
     <string name="EndHour">00:00</string>
     <string name="SelectCategorie">Select Category of Event</string>
@@ -55,5 +56,6 @@
 
     <string name="title_activity_my_events">My Events</string>
     <string name="title_activity_event_view">EventView</string>
+
 
 </resources>
