@@ -19,7 +19,6 @@ public class EventView extends AbstractLoggedInActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
 
-
         // get the event data from the db
         currEvent = AllEvents.getInstance().listOfEvents.get(
                 Integer.parseInt(getIntent().getStringExtra("EventId")));
@@ -27,6 +26,9 @@ public class EventView extends AbstractLoggedInActivity {
         // fill the different textView
         TextView title = findViewById(R.id.eventTitle);
         title.setText(currEvent.title);
+
+        // we change the title of the view
+        setTitle("Event - " + currEvent.title);
 
         TextView startDate = findViewById(R.id.SelectStartDate);
         startDate.setText(currEvent.dateDeb);

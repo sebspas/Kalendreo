@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="5dp"
-            android:text="@string/DebutDateHeure"
+            android:text="@string/FinDateHeure"
             android:textColor="@color/colorAccent" />
 
         <LinearLayout
