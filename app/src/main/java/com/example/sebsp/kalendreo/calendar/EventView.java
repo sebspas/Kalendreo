@@ -1,6 +1,9 @@
 package com.example.sebsp.kalendreo.calendar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
@@ -39,6 +42,17 @@ public class EventView extends AbstractLoggedInActivity {
 
         TextView eventType = findViewById(R.id.ListCategorie);
         eventType.setText(currEvent.categorie);
+
+        FloatingActionButton editEvent = findViewById(R.id.EditEvent);
+        editEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // we go to calendar activity and we pass the event id
+                Intent intent = new Intent(EventView.this, CreateEventActivity.class);
+                intent.putExtra("EventId", getIntent().getStringExtra("EventId"));
+                startActivity(intent);
+            }
+        });
     }
 
 }

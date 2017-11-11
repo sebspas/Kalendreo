@@ -20,6 +20,8 @@ public class AllEvents {
 
     public ArrayList<Event> listOfEvents = new ArrayList<>();
 
+    public ArrayList<String> listOfEventsFirebaseKey = new ArrayList<>();
+
     private AllEvents() {
         createEventList();
     }
@@ -52,6 +54,7 @@ public class AllEvents {
                                     + event.dateFin + " _ sh=" + event.startHour + " _ eh=" + event.endHour);*/
 
                     listOfEvents.add(event);
+                    listOfEventsFirebaseKey.add(eventSnap.getKey());
                 }
             }
 

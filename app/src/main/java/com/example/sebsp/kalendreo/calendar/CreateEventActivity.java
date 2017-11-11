@@ -17,11 +17,13 @@ import android.widget.Toast;
 import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.model.AllEvents;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.ReminderManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateEventActivity extends AbstractLoggedInActivity {
@@ -41,6 +43,9 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
     private int endYear, endMonth, endDay;
     private int endHour, endMin;
 
+    // bool to say if we update
+    private boolean update = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,20 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
 
         titleEvent = findViewById(R.id.eventTitle);
 
+        Button create = findViewById(R.id.CreateEvent);
+
+        //setup the categorie list
+        listCategorie = findViewById(R.id.ListCategorie);
+        //TODO change this to get the categorie from a proper file or database
+        ArrayList<String> arraySpinner = new ArrayList<>();
+        arraySpinner.add("Fun");
+        arraySpinner.add("Serious");
+        arraySpinner.add("Work");
+        arraySpinner.add("Very Important");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, arraySpinner);
+        listCategorie.setAdapter(adapter);
+
         //To show current date in the datepicker
         Calendar mcurrentDate=Calendar.getInstance();
         startYear = endYear = mcurrentDate.get(Calendar.YEAR);
@@ -64,15 +83,24 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
         startHour = endHour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         startMin = endMin = mcurrentTime.get(Calendar.MINUTE);
 
-        //setup the categorie list
-        listCategorie = findViewById(R.id.ListCategorie);
-        //TODO change this to get the categorie from a proper file or database
-        String[] arraySpinner = new String[] {
-                "Fun", "Serious", "Work", "Very Important"
-        };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, arraySpinner);
-        listCategorie.setAdapter(adapter);
+        // if we come from EventView
+        if(getIntent().getStringExtra("EventId") != null) {
+            // get the event data from the db
+            Event currEvent = AllEvents.getInstance().listOfEvents.get(
+                    Integer.parseInt(getIntent().getStringExtra("EventId")));
+
+            // then we set the value of the different field
+            startDatePicker.setText(currEvent.dateDeb);
+            startTimePicker.setText(currEvent.startHour);
+            endDatePicker.setText(currEvent.dateFin);
+            endTimePicker.setText(currEvent.endHour);
+            titleEvent.setText(currEvent.title);
+            listCategorie.setSelection(arraySpinner.indexOf(currEvent.categorie));
+            create.setText("Edit event");
+
+            // we say we are updating not creating (used in the database part)
+            update = true;
+        }
 
         startDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,10 +172,6 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
             }
         });
 
-
-        // create the event inside the db
-        Button create = findViewById(R.id.CreateEvent);
-
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,9 +199,9 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     return;
                 }
 
-                String endTime = startTimePicker.getText().toString();
+                String endTime = endTimePicker.getText().toString();
                 if (TextUtils.isEmpty(endTime)) {
-                    Toast.makeText(getApplicationContext(), "Enter a valid start time!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter a valid end time!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -185,9 +209,18 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
 
                 // then if all is ok we create a new Event()
                 Event event = new Event(titre, dateDeb, dateEnd, startTime, endTime, categorie);
+
                 // then we add it to the database
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                ref.child("events").child(firebaseUser.getUid()).push().setValue(event);
+                if (update) {
+                    ref.child("events").child(firebaseUser.getUid()).child(
+                            AllEvents.getInstance().listOfEventsFirebaseKey
+                                    .get(Integer.parseInt(getIntent().getStringExtra("EventId"))))
+                    .setValue(event);
+                } else {
+                    ref.child("events").child(firebaseUser.getUid()).push().setValue(event);
+                }
+
 
                 Toast.makeText(getApplicationContext(), "Event Created!", Toast.LENGTH_SHORT).show();
 
