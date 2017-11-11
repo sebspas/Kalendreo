@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <!-- Permission to plan an alarm -->
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -31,16 +31,19 @@
             android:label="@string/app_name" />
         <!-- End Login Activity -->
 
+
         <!-- Splash Activity -->
         <activity
             android:name=".login.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <!-- End Splash Activity -->
+
 
         <!-- Signup Activity -->
         <activity
@@ -48,13 +51,16 @@
             android:label="@string/title_activity_signup" />
         <!-- End Signup Activity -->
 
-        <!-- Main Activity-->
-        <activity android:name=".MainActivity" />
-        <!-- End Main Activity-->
 
-        <!-- FriendsListActivity-->
+        <!-- Main Activity -->
+        <activity android:name=".MainActivity" />
+        <!-- End Main Activity -->
+
+
+        <!-- FriendsListActivity -->
         <activity android:name=".social.FriendsListActivity" />
-        <!-- End FriendsListActivity-->
+        <!-- End FriendsListActivity -->
+
 
         <!-- FacebookAuth Activity -->
         <activity
@@ -86,13 +92,19 @@
             android:label="@string/title_activity_calendar_view" />
         <!-- End Calendar View Activity -->
 
+
         <!-- CreateEvent Activity -->
         <activity android:name=".calendar.CreateEventActivity" />
         <!-- End CreateEvent Activity -->
 
-        <!-- Allow the app to notify when an alarm is triggered -->
-        <receiver android:name=".utils.AlarmReceiver"/>
 
+        <!-- Allow the app to notify when an alarm is triggered -->
+        <receiver android:name=".utils.AlarmReceiver" />
+
+        <!-- MyEvents Activity -->
+        <activity
+            android:name=".calendar.MyEventsActivity"
+            android:label="@string/title_activity_my_events"/>
     </application>
 
 </manifest>
