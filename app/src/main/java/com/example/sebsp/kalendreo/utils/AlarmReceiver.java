@@ -25,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
         String contentText = "From " + intent.getStringExtra("StartDate") + " " + intent.getStringExtra("StartTime")
-                + ", To " + intent.getStringExtra("EndDate") + " " + intent.getStringExtra("EndTime");
+                + ",\nTo " + intent.getStringExtra("EndDate") + " " + intent.getStringExtra("EndTime");
         //Build notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
