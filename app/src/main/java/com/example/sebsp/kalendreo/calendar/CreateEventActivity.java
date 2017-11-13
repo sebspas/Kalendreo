@@ -122,12 +122,12 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
 
             String[] splitStartDate = currEvent.dateDeb.split("/");
             startYear = Integer.parseInt(splitStartDate[0]);
-            startMonth = Integer.parseInt(splitStartDate[1]);
+            startMonth = Integer.parseInt(splitStartDate[1])-1;
             startDay = Integer.parseInt(splitStartDate[2]);
 
             String[] splitEndDate = currEvent.dateFin.split("/");
             endYear = Integer.parseInt(splitEndDate[0]);
-            endMonth = Integer.parseInt(splitEndDate[1]);
+            endMonth = Integer.parseInt(splitEndDate[1])-1;
             endDay = Integer.parseInt(splitEndDate[2]);
 
             String[] splitStartTime = currEvent.startHour.split(":");
@@ -151,12 +151,12 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         startYear = selectedyear;
-                        startMonth = selectedmonth+1;
+                        startMonth = selectedmonth;
                         startDay =selectedday;
 
-                        startDatePicker.setText(selectedyear + "/" + startMonth + "/" + selectedday);
+                        startDatePicker.setText(selectedyear + "/" + (startMonth+1) + "/" + selectedday);
                     }
-                }, startYear, startMonth-1, startDay);
+                }, startYear, startMonth, startDay);
                 mDatePicker.setTitle("Select date");
                 mDatePicker.show();
             }
@@ -186,12 +186,12 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
                     public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                         // we change the value of the day of deb of the event
                         endYear = selectedyear;
-                        endMonth = selectedmonth+1;
+                        endMonth = selectedmonth;
                         endDay =selectedday;
 
-                        endDatePicker.setText(endYear  + "/" + endMonth + "/" + endDay);
+                        endDatePicker.setText(endYear  + "/" + (endMonth+1) + "/" + endDay);
                     }
-                }, endYear, endMonth-1, endDay);
+                }, endYear, endMonth, endDay);
                 mDatePicker.setTitle("Select date");
                 mDatePicker.show();
             }
