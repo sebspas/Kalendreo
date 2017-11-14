@@ -12,9 +12,9 @@ import java.util.Calendar;
 public class CustomDatePickerOnClickListener implements View.OnClickListener {
 
     private IDatePicker datePicker;
-    private CustomDatePickerDialogOnDateListener dialogListener;
+    private DatePickerDialog.OnDateSetListener dialogListener;
 
-    CustomDatePickerOnClickListener(IDatePicker datePicker, CustomDatePickerDialogOnDateListener dialogListener) {
+    CustomDatePickerOnClickListener(IDatePicker datePicker, DatePickerDialog.OnDateSetListener dialogListener) {
         this.datePicker = datePicker;
         this.dialogListener = dialogListener;
     }
