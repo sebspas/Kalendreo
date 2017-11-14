@@ -8,7 +8,6 @@ import android.widget.TimePicker;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 
 public class CustomTimePicker extends AbstractDateTimePicker {
@@ -49,6 +48,5 @@ public class CustomTimePicker extends AbstractDateTimePicker {
     protected void setSdf() {
         this.sdf = new SimpleDateFormat("HH:mm", getResources().getConfiguration().locale);
     }
-
 
 }

@@ -1,8 +1,40 @@
 package com.example.sebsp.kalendreo.model;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 public class Event {
+
+    private Calendar startDate;
+    private Calendar endDate;
+
+    public void setStartTime(Calendar time) {
+        setTime(time, startDate);
+    }
+
+    public void setEndTime(Calendar time) {
+        setTime(time, endDate);
+    }
+
+    private void setDate(Calendar date, Calendar dateToSet) {
+        dateToSet.set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH));
+        dateToSet.set(Calendar.MONTH, date.get(Calendar.MONTH));
+        dateToSet.set(Calendar.YEAR, date.get(Calendar.YEAR));
+    }
+
+    public void setStartDate(Calendar date) {
+        setDate(date, startDate);
+    }
+
+    public void setEndDate(Calendar date) {
+        setDate(date, endDate);
+    }
+
+    private void setTime(Calendar time, Calendar timeToSet) {
+        timeToSet.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
+        timeToSet.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
+    }
+
     public String title;
 
     public String dateDeb;
@@ -23,7 +55,7 @@ public class Event {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "\n" + this.title + "\n" + this.dateDeb + " - "
                 + this.dateFin + "\nfrom " + this.startHour + " to " + this.endHour + "\n";
     }
