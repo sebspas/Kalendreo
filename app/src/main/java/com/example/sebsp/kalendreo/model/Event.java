@@ -1,101 +1,126 @@
 package com.example.sebsp.kalendreo.model;
 
+import android.util.Log;
+
+import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.model.pojo.EventPOJO;
+import com.example.sebsp.kalendreo.utils.Tag;
+
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
-public class Event {
+public class Event extends Model {
 
-    private Calendar startDate;
-    private Calendar endDate;
-
-    public void setStartTime(Calendar time) {
-        setTime(time, startDate);
+    public static String getTableName() {
+        return "events";
     }
 
-    public void setEndTime(Calendar time) {
-        setTime(time, endDate);
+    // ---------------- Fields
+
+    private Calendar startDate = new GregorianCalendar();
+    private Calendar endDate = new GregorianCalendar();
+    private User user;
+    private String category = "";
+    private String title = "";
+
+    public Event(EventPOJO eventPOJO) {
+        this.startDate.setTimeInMillis(eventPOJO.startDate);
+        this.endDate.setTimeInMillis(eventPOJO.endDate);
+        this.category = eventPOJO.category;
+        this.title = eventPOJO.title;
+        this.user = new User(eventPOJO.userId);
+        this.id = eventPOJO.id;
     }
 
-    private void setDate(Calendar date, Calendar dateToSet) {
-        dateToSet.set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH));
-        dateToSet.set(Calendar.MONTH, date.get(Calendar.MONTH));
-        dateToSet.set(Calendar.YEAR, date.get(Calendar.YEAR));
-    }
+    // ---------------- Setters & getters
 
     public void setStartDate(Calendar date) {
-        setDate(date, startDate);
+        this.startDate = date;
     }
 
     public void setEndDate(Calendar date) {
-        setDate(date, endDate);
+        this.endDate = date;
     }
 
-    private void setTime(Calendar time, Calendar timeToSet) {
-        timeToSet.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
-        timeToSet.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY));
+    public String getTitle() {
+        return title;
     }
 
-    public String title;
+    public String getCategory() {
+        return category;
+    }
 
-    public String dateDeb;
-    public String dateFin;
+    public Calendar getStartDate() {
+        return startDate;
+    }
 
-    public String startHour;
-    public String endHour;
+    public Calendar getEndDate() {
+        return endDate;
+    }
 
-    public String categorie;
+    public User getUser() {
+        return user;
+    }
 
-    public Event(String title, String dateDeb, String dateFin, String startHour, String endHour, String categorie) {
+    public void setTitle(String title) {
         this.title = title;
-        this.dateDeb = dateDeb;
-        this.dateFin = dateFin;
-        this.startHour = startHour;
-        this.endHour = endHour;
-        this.categorie = categorie;
     }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    // ----------------- Constructors
+
+    public Event() {
+        endDate.add(Calendar.HOUR_OF_DAY, 1); // End Date is one hour later by default
+    }
+
+    public Event(String title, Calendar startDate, Calendar endDate, String category, User user) {
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.category = category;
+        this.user = user;
+    }
+
+    // ----------------- Override methods
+
+    @Override
+    public void create() {
+        this.id = databaseReference.push().getKey();
+        databaseReference.child(getTableName()).child(id).setValue(new EventPOJO(this));
+        Log.i(Tag.MODEL_EVENT, "event created");
+    }
+
+    @Override
+    public void update() {
+        databaseReference.child(getTableName()).child(id).setValue(new EventPOJO(this));
+        Log.i(Tag.MODEL_EVENT, "event updated");
+
+    }
+
+    @Override
+    protected void valid() throws ModelNotValidException {
+        if (Objects.equals(title, "")) {
+            throw new ModelNotValidException(R.string.error_event_title_empty);
+        }
+        if (startDate.compareTo(endDate) >= 0) {
+            throw new ModelNotValidException(R.string.error_event_start_end_time);
+        }
+    }
+
+
+    // ----------------------- Others
 
     @Override
     public String toString() {
-        return "\n" + this.title + "\n" + this.dateDeb + " - "
-                + this.dateFin + "\nfrom " + this.startHour + " to " + this.endHour + "\n";
+        return "\n" + this.title + "\n" + this.startDate.getTime().toString() + " - "
+                + this.endDate.getTime().toString();
     }
-
-    // USED TO need to override equals() and hashCode() for the contains() in AllEvents class
-    @Override
-    public boolean equals(Object o) {
-
-        if (o == this) return true;
-        if (!(o instanceof Event)) {
-            return false;
-        }
-
-        Event e = (Event) o;
-
-        return this.title.equals(e.title)
-                && this.dateDeb.equals(e.dateDeb)
-                && this.dateFin.equals(e.dateFin)
-                && this.startHour.equals(e.startHour)
-                && this.endHour.equals(e.endHour);
-    }
-
-    // JDK 7 and above
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, dateDeb, dateFin, startHour, endHour, categorie);
-    }
-
-    /* Classic way
-    //Idea from effective Java : Item 9
-    @Override
-    public int hashCode() {
-        int result = 17;
-        result = 31 * result + title.hashCode();
-        result = 31 * result + dateDeb.hashCode();
-        result = 31 * result + dateFin.hashCode();
-        result = 31 * result + startHour.hashCode();
-        result = 31 * result + endHour.hashCode();
-        result = 31 * result + categorie.hashCode();
-        return result;
-    }
-    */
 }
