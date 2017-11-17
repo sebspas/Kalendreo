@@ -10,6 +10,9 @@ import android.widget.Toast;
 import com.example.sebsp.kalendreo.AbstractAppCompatActivity;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.model.Event;
+import com.example.sebsp.kalendreo.model.pojo.EventPOJO;
+import com.example.sebsp.kalendreo.utils.ReminderManager;
 import com.example.sebsp.kalendreo.utils.Tag;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -20,9 +23,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.HashMap;
 
 /**
  * Created by Gaetan on 04/11/2017.
@@ -136,6 +146,39 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
         private void launchMainActivity() {
             // From here, the firebase authentication is done
             SplashScreenActivity.super.launchAndClose(new Intent(SplashScreenActivity.this, MainActivity.class));
+        }
+
+        /**
+         * Create the notification for all the event depending on the categorie
+         */
+        private void createAlarmForNotificationForEvent() {
+            // TODO GM: Call this method
+            final HashMap<String, Event> listOfEvents = new HashMap<>();
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("events").child(firebaseUser.getUid());
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Iterable<DataSnapshot> eventIterable = dataSnapshot.getChildren();
+
+                    for (DataSnapshot eventSnap : eventIterable) {
+                        Event event = new Event(eventSnap.getValue(EventPOJO.class));
+                        listOfEvents.put(event.getId(), event);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(Tag.FIREBASE_ERROR, databaseError.getMessage());
+                }
+            });
+
+            for (Event e : listOfEvents.values()) {
+                // for each event of the user we create a new reminder
+                ReminderManager.createAReminder(SplashScreenActivity.this, e);
+            }
         }
     }
 }

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by Gaetan on 04/11/2017.
@@ -19,6 +18,10 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
     // Firebase set up
     protected FirebaseUser firebaseUser;
     protected FirebaseAuth firebaseAuth;
+
+    public FirebaseUser getFirebaseUser() {
+        return firebaseUser;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
 
     /**
      * Fetch the string value passed in the current intent
+     *
      * @param key Key of the extra
      * @return the String extra value if existing
      */
@@ -72,8 +76,8 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
      * Warning: this will auto commit, do not use if several editions are needed
      *
      * @param spFile The SP File where to store the data
-     * @param spKey The SP File Key where to store the data in the SP File
-     * @param value String value to store
+     * @param spKey  The SP File Key where to store the data in the SP File
+     * @param value  String value to store
      */
     protected void storeInSharedPreferences(String spFile, String spKey, String value) {
         SharedPreferences sharedPref = this.getSharedPreferences(spFile, Context.MODE_PRIVATE);
@@ -85,8 +89,8 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
     /**
      * Read from the shared preferences a string
      *
-     * @param spFile The SP File where to read the data
-     * @param spKey the SP File Key where to read the data in the SP File
+     * @param spFile       The SP File where to read the data
+     * @param spKey        the SP File Key where to read the data in the SP File
      * @param defaultValue the default value if the SP is not found
      * @return String the value (or default)
      */
@@ -96,33 +100,14 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
     }
 
     /**
-     * @see this.getFromSharedPreferences
-     * @param rIdSpFile R Id of the SP File
-     * @param rIdSpKey R Id of the SP File Key Resource
+     * @param rIdSpFile    R Id of the SP File
+     * @param rIdSpKey     R Id of the SP File Key Resource
      * @param defaultValue Default value
      * @return @see.this.getFromSharedPreferences
+     * @see this.getFromSharedPreferences
      */
     protected String getFromSharedPreferences(int rIdSpFile, int rIdSpKey, String defaultValue) {
         return this.getFromSharedPreferences(getString(rIdSpFile), getString(rIdSpKey), defaultValue);
     }
-
-
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
 
 }

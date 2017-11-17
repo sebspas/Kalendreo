@@ -86,7 +86,6 @@ public class SignupActivity extends AbstractNotLoggedInActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     // we also had the user into the database Firebase
-                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                                     firebaseUser = firebaseAuth.getCurrentUser();
                                     User newUser = new User(firebaseUser);
                                     try {
