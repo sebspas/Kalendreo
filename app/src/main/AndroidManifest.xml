@@ -109,6 +109,7 @@
         <activity
             android:name=".calendar.EventView"
             android:label="@string/title_activity_event_view"/>
+        <activity android:name=".calendar.EditEventActivity" />
 
     </application>
 
