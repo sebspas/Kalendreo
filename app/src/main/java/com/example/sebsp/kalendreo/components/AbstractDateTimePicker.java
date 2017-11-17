@@ -3,6 +3,10 @@ package com.example.sebsp.kalendreo.components;
 import android.content.Context;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.ViewGroup;
+
+import com.example.sebsp.kalendreo.R;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -13,7 +17,7 @@ import java.util.GregorianCalendar;
  * Abstract DateTimePicker
  * Created by Gaetan on 14/11/2017.
  */
-class AbstractDateTimePicker extends AppCompatEditText implements IDatePicker {
+abstract class AbstractDateTimePicker extends AppCompatEditText implements IDatePicker {
     //  ----------------- Attributes
     protected SimpleDateFormat sdf;
     protected Calendar calendar;
@@ -63,7 +67,27 @@ class AbstractDateTimePicker extends AppCompatEditText implements IDatePicker {
         this.setSdf();
         this.setDate(date);
         this.setListeners();
+        this.setAttributes();
     }
+
+    /**
+     * Set the attributes of the view
+     */
+    protected void setAttributes() {
+        this.setId(ViewGroup.generateViewId());
+        this.setCustomLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        this.setEms(10);
+        this.setFocusable(false);
+        this.setTextColor(getResources().getColor(R.color.colorTextInput));
+        this.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+    }
+
+    /**
+     * Layout Params
+     */
+    protected abstract void setCustomLayoutParams(ViewGroup.LayoutParams actualParams);
 
     /**
      * Set the Format for the picker
@@ -95,9 +119,7 @@ class AbstractDateTimePicker extends AppCompatEditText implements IDatePicker {
     /**
      * Set the listeners
      */
-    protected void setListeners() {
-        // Override me
-    }
+    protected abstract void setListeners();
 
     /**
      * Return the string value of the calendar entered

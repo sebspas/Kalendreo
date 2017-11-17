@@ -1,10 +1,7 @@
 package com.example.sebsp.kalendreo.components;
 
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.view.View;
-import android.widget.TimePicker;
 
 import java.util.Calendar;
 
@@ -28,7 +25,7 @@ public class CustomTimePickerOnClickListener implements View.OnClickListener {
         int minute = datePicker.getDate().get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(
-                datePicker.getContext(), dialogListener , hour, minute, true);
+                datePicker.getContext(), dialogListener, hour, minute, true);
 //        timePickerDialog.setTitle("Select a time");
         timePickerDialog.show();
     }

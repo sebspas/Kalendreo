@@ -3,9 +3,9 @@ package com.example.sebsp.kalendreo.components;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -29,6 +29,7 @@ public class CustomDatePicker extends AbstractDateTimePicker {
         super(context, date);
     }
 
+
     //  ----------------- Methods
 
     @Override
@@ -40,5 +41,14 @@ public class CustomDatePicker extends AbstractDateTimePicker {
                         CustomDatePicker.this.setDate(new GregorianCalendar(year, month, dayOfMonth));
                     }
                 }));
+    }
+
+    /**
+     * Set Width & Height layout
+     */
+    protected void setCustomLayoutParams(ViewGroup.LayoutParams actualParams) {
+        actualParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        actualParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        this.setLayoutParams(actualParams);
     }
 }

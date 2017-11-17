@@ -3,6 +3,7 @@ package com.example.sebsp.kalendreo.components;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +27,20 @@ public class CustomTimePicker extends AbstractDateTimePicker {
         super(context, attrs, defStyleAttr);
     }
 
+    public CustomTimePicker(Context context, Calendar date) {
+        super(context, date);
+    }
+
     //  ----------------- Methods
+
+    /**
+     * Set the Format for the picker
+     */
+    @Override
+    protected void setSdf() {
+        this.sdf = new SimpleDateFormat("HH:mm", getResources().getConfiguration().locale);
+    }
+
     @Override
     protected void setListeners() {
         this.setOnClickListener(new CustomTimePickerOnClickListener(this,
@@ -41,12 +55,10 @@ public class CustomTimePicker extends AbstractDateTimePicker {
                 }));
     }
 
-    /**
-     * Set the Format for the picker
-     */
     @Override
-    protected void setSdf() {
-        this.sdf = new SimpleDateFormat("HH:mm", getResources().getConfiguration().locale);
+    protected void setCustomLayoutParams(ViewGroup.LayoutParams actualParams) {
+        actualParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        actualParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        this.setLayoutParams(actualParams);
     }
-
 }
