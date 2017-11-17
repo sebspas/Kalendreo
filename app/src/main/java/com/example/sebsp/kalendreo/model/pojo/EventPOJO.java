@@ -24,6 +24,6 @@ public class EventPOJO {
         this.endDate = event.getEndDate().getTimeInMillis();
         this.id = event.getId();
         this.category = event.getCategory();
-        this.userId = event.getUser() == null ? null : event.getUser().getId();
+        this.userId = event.getUserId();
     }
 }

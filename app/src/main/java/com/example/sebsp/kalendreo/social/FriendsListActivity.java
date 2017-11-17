@@ -1,6 +1,5 @@
 package com.example.sebsp.kalendreo.social;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,9 +23,6 @@ public class FriendsListActivity extends AbstractLoggedInActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_friends_list);
-
-        // Get the JSON Array from Facebook
-        fetchIntentString(R.string.EXTRA_FACEBOOK_FRIENDS_JSON);
 
         // Display list into listView
         String friendsJsonData = this.getFromSharedPreferences(R.string.SP_FILE_FACEBOOK_FRIENDS, R.string.SP_KEY_FACEBOOK_FRIENDS_JSON, "{}");

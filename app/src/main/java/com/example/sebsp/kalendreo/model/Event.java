@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.pojo.EventPOJO;
 import com.example.sebsp.kalendreo.utils.Tag;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -16,11 +17,15 @@ public class Event extends Model {
         return "events";
     }
 
+    public static DatabaseReference getReference(String userId) {
+        return databaseReference.child(Event.getTableName()).child(userId);
+    }
+
     // ---------------- Fields
 
     private Calendar startDate = new GregorianCalendar();
     private Calendar endDate = new GregorianCalendar();
-    private User user;
+    private String userId;
     private String category = "";
     private String title = "";
 
@@ -29,7 +34,7 @@ public class Event extends Model {
         this.endDate.setTimeInMillis(eventPOJO.endDate);
         this.category = eventPOJO.category;
         this.title = eventPOJO.title;
-        this.user = new User(eventPOJO.userId);
+        this.userId = eventPOJO.userId;
         this.id = eventPOJO.id;
     }
 
@@ -59,8 +64,8 @@ public class Event extends Model {
         return endDate;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
     public void setTitle(String title) {
@@ -71,8 +76,8 @@ public class Event extends Model {
         this.category = category;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(String userId) {
+        this.userId = userId;
     }
 
     // ----------------- Constructors
@@ -81,12 +86,12 @@ public class Event extends Model {
         endDate.add(Calendar.HOUR_OF_DAY, 1); // End Date is one hour later by default
     }
 
-    public Event(String title, Calendar startDate, Calendar endDate, String category, User user) {
+    public Event(String title, Calendar startDate, Calendar endDate, String category, String userId) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.category = category;
-        this.user = user;
+        this.userId = userId;
     }
 
     // ----------------- Override methods
@@ -94,13 +99,13 @@ public class Event extends Model {
     @Override
     public void create() {
         this.id = databaseReference.push().getKey();
-        databaseReference.child(getTableName()).child(id).setValue(new EventPOJO(this));
+        Event.getReference(userId).child(id).setValue(new EventPOJO(this));
         Log.i(Tag.MODEL_EVENT, "event created");
     }
 
     @Override
     public void update() {
-        databaseReference.child(getTableName()).child(id).setValue(new EventPOJO(this));
+        Event.getReference(userId).child(id).setValue(new EventPOJO(this));
         Log.i(Tag.MODEL_EVENT, "event updated");
 
     }

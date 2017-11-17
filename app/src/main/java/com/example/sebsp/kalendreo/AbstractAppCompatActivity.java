@@ -53,8 +53,8 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
      * @param rid R id of the string resource
      * @return the String extra value if existing
      */
-    protected String fetchIntentString(int rid) {
-        return fetchIntentString(getString(rid));
+    protected String getStringFromIntent(int rid) {
+        return getStringFromIntent(getString(rid));
     }
 
     /**
@@ -63,7 +63,7 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
      * @param key Key of the extra
      * @return the String extra value if existing
      */
-    protected String fetchIntentString(String key) {
+    protected String getStringFromIntent(String key) {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             return bundle.getString(key);

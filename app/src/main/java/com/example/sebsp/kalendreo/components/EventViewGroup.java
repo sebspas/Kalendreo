@@ -16,10 +16,11 @@ import android.widget.TextView;
 
 import com.example.sebsp.kalendreo.AbstractAppCompatActivity;
 import com.example.sebsp.kalendreo.R;
-import com.example.sebsp.kalendreo.calendar.EventView;
+import com.example.sebsp.kalendreo.calendar.EventViewActivity;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.model.ModelNotValidException;
 import com.example.sebsp.kalendreo.model.User;
+import com.example.sebsp.kalendreo.utils.ReminderManager;
 
 /**
  * Created by Gaetan on 15/11/2017.
@@ -129,7 +130,8 @@ public class EventViewGroup extends AbstractLinearLayout {
             public void onClick(View v) {
                 boolean eventCreated = EventViewGroup.this.saveEvent();
                 if (eventCreated) {
-                    Intent intent = new Intent(getContext(), EventView.class);
+                    Intent intent = new Intent(getContext(), EventViewActivity.class);
+                    intent.putExtra(getContext().getString(R.string.EXTRA_EVENT_ID), event.getId());
                     getContext().startActivity(intent);
                     currentActivity.finish();
                 }
@@ -182,14 +184,14 @@ public class EventViewGroup extends AbstractLinearLayout {
         event.setEndDate(EventViewGroup.this.endDateTime.getDate());
         event.setTitle(EventViewGroup.this.titleET.getText().toString());
         event.setCategory(categoriesSpinner.getSelectedItem().toString());
-        event.setUser(this.user);
+        event.setUser(this.user.getId());
         try {
             event.save();
+            ReminderManager.createAReminder(currentActivity, event);
         } catch (ModelNotValidException e) {
             e.displayMessage(getContext());
             return false;
         }
         return true;
     }
-
 }

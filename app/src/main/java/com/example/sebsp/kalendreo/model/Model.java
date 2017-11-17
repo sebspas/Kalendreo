@@ -9,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 abstract class Model {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     protected String id = null;
 

@@ -35,7 +35,7 @@ public class DateFormatter {
      * @return the date formatted according to the application context
      */
     public String getDate(Calendar date) {
-        return dateFormat.format(date);
+        return dateFormat.format(date.getTime());
     }
 
     /**
@@ -45,7 +45,7 @@ public class DateFormatter {
      * @return the date formatted according to the application context
      */
     public String getTime(Calendar date) {
-        return timeFormat.format(date);
+        return timeFormat.format(date.getTime());
     }
 
     /**

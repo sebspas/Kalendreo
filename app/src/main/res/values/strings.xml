@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Kalendreo</string>
 
+    <string name="save">Save</string>
+
     <!-- Strings related to login -->
     <string name="action_sign_in_short">Sign in</string>
 
@@ -34,7 +36,7 @@
     <string name="FinDateHeure">Ending Day and Hour</string>
     <string name="DateFin">End Date</string>
     <string name="EndHour">00:00</string>
-    <string name="SelectCategorie">Select Category of Event</string>
+    <string name="select_category">Select Category of Event</string>
     <string name="ValiderEvent">Create</string>
     <string name="EventTitle">Event Title</string>
     <string name="CreateEvent">Create an Event</string>
@@ -42,11 +44,23 @@
     <string name="logout_message">You have been disconnected</string>
     <string name="ViewCalendar">View Calendar</string>
 
+    <string name="select_date">Select a date</string>
+    <string name="start_date_time">Starting datetime</string>
+    <string name="end_date_time">Ending datetime</string>
+
     <string name="btn_friends">Friends</string>
+
+    <string-array name="event_categories">
+        <item>Fun</item>
+        <item>Serious</item>
+        <item>Work</item>
+        <item>Very Important</item>
+    </string-array>
 
     <!-- INTENTS EXTRA KEYS -->
     <string name="EXTRA_FACEBOOK_AUTH_TOKEN">com.example.sebsp.kalendreo.extra.facebook_auth_token</string>
     <string name="EXTRA_FACEBOOK_FRIENDS_JSON">com.example.sebsp.kalendreo.extra.facebook_friends_json</string>
+    <string name="EXTRA_EVENT_ID">com.example.sebsp.kalendreo.extra.event_id</string>
     <!-- END INTENTS EXTRA KEYS-->
 
     <!-- Shared Preferences Files  -->
@@ -55,7 +69,10 @@
     <!-- END Shared Preferences Files  -->
 
     <string name="title_activity_my_events">My Events</string>
-    <string name="title_activity_event_view">EventView</string>
+    <string name="title_activity_event_view">Event</string>
+    <string name="error_event_start_end_time">Starting date must be before ending date</string>
+    <string name="error_event_title_empty">You must fill the event title</string>
+    <string name="can_not_load_event">Cant\'t load event</string>
 
 
 </resources>

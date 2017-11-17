@@ -46,7 +46,7 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        facebookToken = fetchIntentString(R.string.EXTRA_FACEBOOK_AUTH_TOKEN);
+        facebookToken = getStringFromIntent(R.string.EXTRA_FACEBOOK_AUTH_TOKEN);
         new PrefetchData().execute();
     }
 
@@ -155,7 +155,7 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
             // TODO GM: Call this method
             final HashMap<String, Event> listOfEvents = new HashMap<>();
 
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("events").child(firebaseUser.getUid());
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(Event.getTableName()).child(firebaseUser.getUid());
 
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
