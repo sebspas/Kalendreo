@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.sebsp.kalendreo.AbstractNotLoggedInActivity;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.model.ModelNotValidException;
 import com.example.sebsp.kalendreo.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -87,9 +88,12 @@ public class SignupActivity extends AbstractNotLoggedInActivity {
                                     // we also had the user into the database Firebase
                                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                                     firebaseUser = firebaseAuth.getCurrentUser();
-                                    User newUser = new User(email);
-                                    ref.child("users").child(firebaseUser.getUid()).setValue(newUser);
-
+                                    User newUser = new User(firebaseUser);
+                                    try {
+                                        newUser.save();
+                                    } catch (ModelNotValidException e) {
+                                        e.displayMessage(SignupActivity.this);
+                                    }
                                     startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                     finish();
                                 }
