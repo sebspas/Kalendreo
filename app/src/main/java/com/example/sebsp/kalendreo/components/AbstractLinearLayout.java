@@ -45,7 +45,7 @@ public abstract class AbstractLinearLayout extends LinearLayout {
             defaultLayoutParams = new LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            this.setAllMarginsInDp(defaultLayoutParams, 16);
+            this.setAllMarginsInDp(defaultLayoutParams, 6);
         }
         return defaultLayoutParams;
     }
