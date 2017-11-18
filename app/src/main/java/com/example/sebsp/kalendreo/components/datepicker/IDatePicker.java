@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo.components;
+package com.example.sebsp.kalendreo.components.datepicker;
 
 import android.content.Context;
 

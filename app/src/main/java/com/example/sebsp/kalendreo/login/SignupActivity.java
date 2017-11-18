@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.sebsp.kalendreo.AbstractNotLoggedInActivity;
+import com.example.sebsp.kalendreo.structure.AbstractNotLoggedInActivity;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.ModelNotValidException;
@@ -18,8 +18,6 @@ import com.example.sebsp.kalendreo.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A login screen that offers login via email/password.

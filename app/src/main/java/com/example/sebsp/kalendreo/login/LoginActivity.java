@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.sebsp.kalendreo.AbstractNotLoggedInActivity;
+import com.example.sebsp.kalendreo.structure.AbstractNotLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.utils.Tag;
 import com.facebook.CallbackManager;

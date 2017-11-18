@@ -8,14 +8,12 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.sebsp.kalendreo.AbstractMultipleEventsActivity;
-import com.example.sebsp.kalendreo.MultipleEventsLoadedListener;
+import com.example.sebsp.kalendreo.structure.AbstractMultipleEventsActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.DateFormatter;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -67,7 +65,7 @@ public class CalendarViewActivity extends AbstractMultipleEventsActivity {
     }
 
     @Override
-    protected void onEventsLoaded(List<Event> events) {
+    public void onEventsLoaded(List<Event> events) {
         super.onEventsLoaded(events);
 
         String message;

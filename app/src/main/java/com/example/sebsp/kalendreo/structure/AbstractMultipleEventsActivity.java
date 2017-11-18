@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.structure;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.MainActivity;
+import com.example.sebsp.kalendreo.components.listeners.MultipleEventsLoadedListener;
+import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.calendar.EventViewActivity;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.Tag;
@@ -52,7 +55,7 @@ public abstract class AbstractMultipleEventsActivity extends AbstractLoggedInAct
      *
      * @param events events loaded
      */
-    protected void onEventsLoaded(List<Event> events) {
+    public void onEventsLoaded(List<Event> events) {
         // TODO Hide Progress
         this.events = events;
     }
@@ -60,7 +63,7 @@ public abstract class AbstractMultipleEventsActivity extends AbstractLoggedInAct
     /**
      * End this view in case of error
      */
-    protected void errorGettingEvent() {
+    public void errorGettingEvent() {
         Log.e(Tag.FIREBASE_ERROR, "Error getting the events");
         Toast.makeText(this, getText(R.string.can_not_load_event), Toast.LENGTH_SHORT).show();
         launchAndClose(new Intent(this, MainActivity.class));

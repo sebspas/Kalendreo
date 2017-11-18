@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.structure;
 
 import android.content.Context;
 import android.content.Intent;

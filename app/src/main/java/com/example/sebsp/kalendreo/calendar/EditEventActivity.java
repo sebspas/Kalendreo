@@ -3,12 +3,10 @@ package com.example.sebsp.kalendreo.calendar;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-import com.example.sebsp.kalendreo.AbstractEventActivity;
-import com.example.sebsp.kalendreo.EventLoadedListener;
+import com.example.sebsp.kalendreo.structure.AbstractEventActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.components.EventViewGroup;
 import com.example.sebsp.kalendreo.model.Event;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class EditEventActivity extends AbstractEventActivity {
 
@@ -29,7 +27,7 @@ public class EditEventActivity extends AbstractEventActivity {
     }
 
     @Override
-    protected void onEventLoaded(Event event) {
+    public void onEventLoaded(Event event) {
         super.onEventLoaded(event);
         linearLayoutContainer.removeView(this.eventViewGroup);
         eventViewGroup = new EventViewGroup(EditEventActivity.this, event, EditEventActivity.this);

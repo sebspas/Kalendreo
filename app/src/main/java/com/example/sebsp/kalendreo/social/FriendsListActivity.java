@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.sebsp.kalendreo.AbstractLoggedInActivity;
+import com.example.sebsp.kalendreo.structure.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
 
 import org.json.JSONArray;

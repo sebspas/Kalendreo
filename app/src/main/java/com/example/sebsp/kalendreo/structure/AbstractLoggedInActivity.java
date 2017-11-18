@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.structure;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.login.LoginActivity;
 import com.facebook.login.LoginManager;
 

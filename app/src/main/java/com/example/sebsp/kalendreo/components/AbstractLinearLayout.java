@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.sebsp.kalendreo.AbstractAppCompatActivity;
+import com.example.sebsp.kalendreo.structure.AbstractAppCompatActivity;
 
 /**
  * Created by Gaetan on 15/11/2017.

@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.sebsp.kalendreo.AbstractMultipleEventsActivity;
-import com.example.sebsp.kalendreo.MultipleEventsLoadedListener;
+import com.example.sebsp.kalendreo.structure.AbstractMultipleEventsActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.DateFormatter;
@@ -46,7 +43,7 @@ public class MyEventsActivity extends AbstractMultipleEventsActivity {
     }
     
     @Override
-    protected void onEventsLoaded(List<Event> eventsLoaded) {
+    public void onEventsLoaded(List<Event> eventsLoaded) {
         super.onEventsLoaded(eventsLoaded);
         displayListView(eventsList);
     }

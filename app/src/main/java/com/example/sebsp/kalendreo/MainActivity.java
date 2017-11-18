@@ -9,6 +9,7 @@ import com.example.sebsp.kalendreo.calendar.CalendarViewActivity;
 import com.example.sebsp.kalendreo.calendar.CreateEventActivity;
 import com.example.sebsp.kalendreo.calendar.MyEventsActivity;
 import com.example.sebsp.kalendreo.social.FriendsListActivity;
+import com.example.sebsp.kalendreo.structure.AbstractLoggedInActivity;
 
 public class MainActivity extends AbstractLoggedInActivity {
 

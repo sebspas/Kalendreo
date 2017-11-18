@@ -6,8 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.sebsp.kalendreo.AbstractEventActivity;
-import com.example.sebsp.kalendreo.EventLoadedListener;
+import com.example.sebsp.kalendreo.structure.AbstractEventActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.DateFormatter;

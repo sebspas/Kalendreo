@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo.components;
+package com.example.sebsp.kalendreo.components.datepicker;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.components.AbstractLinearLayout;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

@@ -1,11 +1,9 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.structure;
 
 import android.content.Intent;
-import android.os.Bundle;
 
+import com.example.sebsp.kalendreo.MainActivity;
 import com.facebook.login.LoginManager;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by Gaetan on 01/11/2017.

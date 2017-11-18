@@ -1,10 +1,13 @@
-package com.example.sebsp.kalendreo;
+package com.example.sebsp.kalendreo.structure;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.sebsp.kalendreo.components.listeners.EventLoadedListener;
+import com.example.sebsp.kalendreo.MainActivity;
+import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.Tag;
 
@@ -46,16 +49,15 @@ public abstract class AbstractEventActivity extends AbstractLoggedInActivity {
      *
      * @param event event loaded
      */
-    protected void onEventLoaded(Event event) {
+    public void onEventLoaded(Event event) {
         // TODO Hide Progress
     }
 
     /**
      * End this view in case of error
      */
-    protected void errorGettingEvent() {
+    public void errorGettingEvent() {
         Log.e(Tag.INTENT_ERROR, "Could not get id event from intent");
-        Toast.makeText(this, getText(R.string.can_not_load_event), Toast.LENGTH_SHORT).show();
         launchAndClose(new Intent(this, MainActivity.class));
     }
 }
