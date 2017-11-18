@@ -1,6 +1,8 @@
 package com.example.sebsp.kalendreo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -41,7 +43,18 @@ public abstract class AbstractLoggedInActivity extends AbstractAppCompatActivity
     protected void disconnect() {
         firebaseAuth.signOut(); // Firebase log out
         LoginManager.getInstance().logOut(); // Facebook log out
+        clearCache();
         Toast.makeText(this, R.string.logout_message, Toast.LENGTH_SHORT).show();
         redirect();
+    }
+
+    /**
+     * Clear the {@link SharedPreferences}
+     */
+    private void clearCache() {
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.SP_KEY_FACEBOOK_FRIENDS_JSON), Context.MODE_PRIVATE);
+        sharedPref.edit().clear().apply();
+        sharedPref = this.getSharedPreferences(getString(R.string.SP_FILE_FACEBOOK_FRIENDS), Context.MODE_PRIVATE);
+        sharedPref.edit().clear().apply();
     }
 }
