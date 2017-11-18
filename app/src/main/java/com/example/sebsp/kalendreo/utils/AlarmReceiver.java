@@ -24,8 +24,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 PendingIntent.getActivity(context, ReminderManager.ALARM_TYPE_EVENT, intentOnClick,
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-        String contentText = "From " + intent.getStringExtra("StartDate") + " " + intent.getStringExtra("StartTime")
-                + ",\nTo " + intent.getStringExtra("EndDate") + " " + intent.getStringExtra("EndTime");
+        String contentText = "From " + intent.getStringExtra("StartDate") +
+                " To " + intent.getStringExtra("EndDate");
         //Build notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -37,7 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         mBuilder.setContentIntent(pendingIntent);
 
         //Send local notification
-        ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE))
+        ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
                 .notify(ReminderManager.ALARM_TYPE_EVENT, mBuilder.build());
     }
 
