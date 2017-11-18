@@ -40,11 +40,13 @@ import java.util.HashMap;
 public class SplashScreenActivity extends AbstractAppCompatActivity {
 
     private String facebookToken = null;
+    private String googleToken = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         facebookToken = getStringFromIntent(R.string.EXTRA_FACEBOOK_AUTH_TOKEN);
+        googleToken = getStringFromIntent("GoogleToken");
         new PrefetchData().execute();
     }
 
@@ -125,7 +127,6 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(Tag.FACEBOOK_AUTH, "signInWithCredential:success");
                                 launchMainActivity();
-
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(Tag.FACEBOOK_AUTH, "signInWithCredential:failure", task.getException());
