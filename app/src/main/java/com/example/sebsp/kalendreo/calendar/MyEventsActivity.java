@@ -43,7 +43,8 @@ public class MyEventsActivity extends AbstractLoggedInActivity {
 
         eventsList = findViewById(R.id.my_events_list_view);
 
-        Event.getReference(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+        long now = System.currentTimeMillis();
+        Event.getReference(firebaseUser.getUid()).orderByChild("startDate").startAt(now).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
