@@ -107,7 +107,12 @@ public class Event extends Model {
     public void update() {
         Event.getReference(userId).child(id).setValue(new EventPOJO(this));
         Log.i(Tag.MODEL_EVENT, "event updated");
+    }
 
+    @Override
+    public void delete() {
+        Event.getReference(userId).child(id).removeValue();
+        Log.i(Tag.MODEL_EVENT, "event deleted");
     }
 
     @Override

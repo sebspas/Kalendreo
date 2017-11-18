@@ -34,6 +34,8 @@ abstract class Model {
 
     public abstract void update();
 
+    public abstract void delete();
+
     public String getId() {
         return id;
     }

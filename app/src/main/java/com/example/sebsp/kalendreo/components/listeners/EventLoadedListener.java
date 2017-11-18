@@ -24,8 +24,10 @@ public class EventLoadedListener implements ValueEventListener {
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        Event event = new Event(dataSnapshot.getValue(EventPOJO.class));
-        activity.onEventLoaded(event);
+        if (dataSnapshot.exists()) {
+            Event event = new Event(dataSnapshot.getValue(EventPOJO.class));
+            activity.onEventLoaded(event);
+        }
     }
 
     @Override

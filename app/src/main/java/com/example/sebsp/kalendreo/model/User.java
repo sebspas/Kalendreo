@@ -1,5 +1,7 @@
 package com.example.sebsp.kalendreo.model;
 
+import android.util.Log;
+
 import com.example.sebsp.kalendreo.model.pojo.UserPOJO;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -47,5 +49,10 @@ public class User extends Model {
     @Override
     public void update() {
         databaseReference.child(getTableName()).child(id).setValue(new UserPOJO(this));
+    }
+
+    @Override
+    public void delete() {
+        // No method to delete an user implemented yet
     }
 }

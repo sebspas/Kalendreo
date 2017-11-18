@@ -1,14 +1,17 @@
 package com.example.sebsp.kalendreo.calendar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.sebsp.kalendreo.structure.AbstractEventActivity;
+import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
+import com.example.sebsp.kalendreo.structure.AbstractEventActivity;
 import com.example.sebsp.kalendreo.utils.DateFormatter;
 
 public class EventViewActivity extends AbstractEventActivity {
@@ -20,6 +23,7 @@ public class EventViewActivity extends AbstractEventActivity {
     private TextView endDate;
     private TextView endTime;
     private FloatingActionButton editEvent;
+    private FloatingActionButton deleteEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class EventViewActivity extends AbstractEventActivity {
         endTime = findViewById(R.id.SelectEndHours);
         eventType = findViewById(R.id.ListCategorie);
         editEvent = findViewById(R.id.EditEvent);
+        deleteEvent = findViewById(R.id.DeleteEvent);
     }
 
     @Override
@@ -66,6 +71,25 @@ public class EventViewActivity extends AbstractEventActivity {
                 Intent intent = new Intent(EventViewActivity.this, EditEventActivity.class);
                 intent.putExtra(getString(R.string.EXTRA_EVENT_ID), event.getId());
                 launchAndClose(intent);
+            }
+        });
+
+        deleteEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog deleteEventAlert = new AlertDialog.Builder(EventViewActivity.this)
+                        .setTitle("Delete this Event")
+                        .setMessage("Do you really want to delete this event?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // suppress the event from firebase
+                                event.delete();
+                                // got to the MyEventsActivity
+                                Intent intent = new Intent(EventViewActivity.this, MainActivity.class);
+                                launchAndClose(intent);
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
     }
