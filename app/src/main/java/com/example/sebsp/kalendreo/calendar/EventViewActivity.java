@@ -40,7 +40,7 @@ public class EventViewActivity extends AbstractEventActivity {
     protected void loadEvent(String idEvent) {
         // Refresh automatically (not only once)
         Event.getReference(firebaseUser.getUid()).child(idEvent).
-                addValueEventListener(new EventLoadedListener(this));
+                addValueEventListener(listener);
     }
 
     @Override

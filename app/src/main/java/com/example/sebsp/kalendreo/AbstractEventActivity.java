@@ -14,9 +14,12 @@ import com.example.sebsp.kalendreo.utils.Tag;
  */
 public abstract class AbstractEventActivity extends AbstractLoggedInActivity {
 
+    protected EventLoadedListener listener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listener = new EventLoadedListener(this);
     }
 
     @Override
@@ -30,12 +33,18 @@ public abstract class AbstractEventActivity extends AbstractLoggedInActivity {
         loadEvent(idEvent);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Event.getReference(firebaseUser.getUid()).removeEventListener(listener);
+    }
+
     protected abstract void loadEvent(String idEvent);
 
     /**
      * Called when event is loaded
      *
-     * @param event
+     * @param event event loaded
      */
     protected void onEventLoaded(Event event) {
         // TODO Hide Progress

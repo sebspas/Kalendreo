@@ -72,7 +72,7 @@
     <string name="title_activity_event_view">Event</string>
     <string name="error_event_start_end_time">Starting date must be before ending date</string>
     <string name="error_event_title_empty">You must fill the event title</string>
-    <string name="can_not_load_event">Cant\'t load event</string>
+    <string name="can_not_load_event">Can\'t load event</string>
 
 
 </resources>

@@ -25,7 +25,7 @@ public class EditEventActivity extends AbstractEventActivity {
     @Override
     protected void loadEvent(String idEvent) {
         Event.getReference(firebaseUser.getUid()).child(idEvent).
-                addListenerForSingleValueEvent(new EventLoadedListener(this));
+                addListenerForSingleValueEvent(listener);
     }
 
     @Override
