@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sebsp.kalendreo.calendar.MyEventsActivity">
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/my_events_list_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark" />
-
-    </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/AddEvent"
+    <ListView
+        android:id="@+id/my_events_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:background="@color/colorPrimaryDark" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_add_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/activity_horizontal_margin"
         app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/plus_symbol" />
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

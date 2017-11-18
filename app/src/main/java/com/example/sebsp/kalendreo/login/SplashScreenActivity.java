@@ -154,10 +154,7 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
         private void createAlarmForNotificationForEvent() {
             // TODO GM: Call this method
             final HashMap<String, Event> listOfEvents = new HashMap<>();
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(Event.getTableName()).child(firebaseUser.getUid());
-
-            ref.addValueEventListener(new ValueEventListener() {
+            Event.getReference(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 

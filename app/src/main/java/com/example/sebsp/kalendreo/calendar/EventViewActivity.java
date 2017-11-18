@@ -50,7 +50,7 @@ public class EventViewActivity extends AbstractEventActivity {
     }
 
     private void displayViews(final Event event) {
-        setTitle(getString(R.string.title_activity_event_view) + event.getTitle());
+        setTitle(getString(R.string.title_activity_event_view) + " " + event.getTitle());
 
         DateFormatter dateFormatter = new DateFormatter(this);
 
