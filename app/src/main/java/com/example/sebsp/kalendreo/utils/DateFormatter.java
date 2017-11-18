@@ -57,4 +57,31 @@ public class DateFormatter {
     public String getFullDateFromContext(Calendar date) {
         return getDate(date) + " " + getTime(date);
     }
+
+    /**
+     * Truncate today's date to midnight
+     *
+     * @param date Date to truncate
+     * @return the date with time set to 00:00:00
+     */
+    public static Calendar midnight(Calendar date) {
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        return date;
+    }
+
+    /**
+     * @param date @see this.midnight
+     * @return Midnight of tomorrow
+     * @see this.midnight
+     */
+    public static Calendar nextMidnight(Calendar date) {
+        Calendar newDate = Calendar.getInstance();
+        newDate.setTimeInMillis(midnight(date).getTimeInMillis());
+        newDate.add(Calendar.DAY_OF_MONTH, 1);
+        return newDate;
+    }
+
 }
