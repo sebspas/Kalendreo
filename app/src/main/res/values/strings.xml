@@ -61,6 +61,7 @@
     <string name="EXTRA_FACEBOOK_AUTH_TOKEN">com.example.sebsp.kalendreo.extra.facebook_auth_token</string>
     <string name="EXTRA_FACEBOOK_FRIENDS_JSON">com.example.sebsp.kalendreo.extra.facebook_friends_json</string>
     <string name="EXTRA_EVENT_ID">com.example.sebsp.kalendreo.extra.event_id</string>
+    <string name="EXTRA_START_DATE_SELECTED">com.example.sebsp.kalendreo.extra.start_date_selected</string>
     <!-- END INTENTS EXTRA KEYS-->
 
     <!-- Shared Preferences Files  -->

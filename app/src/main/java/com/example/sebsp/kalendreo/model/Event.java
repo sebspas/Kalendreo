@@ -86,6 +86,19 @@ public class Event extends Model {
         endDate.add(Calendar.HOUR_OF_DAY, 1); // End Date is one hour later by default
     }
 
+    /**
+     * Create an event with predefined start date
+     *
+     * @param starDate time in millis for the start date
+     * @see Event()
+     */
+    public Event(long starDate) {
+        this.startDate.setTimeInMillis(starDate);
+        this.startDate.set(Calendar.HOUR_OF_DAY, 12); // Midday by default
+        this.endDate.setTimeInMillis(starDate);
+        this.endDate.set(Calendar.HOUR_OF_DAY, 13); // 1 pm
+    }
+
     public Event(String title, Calendar startDate, Calendar endDate, String category, String userId) {
         this.title = title;
         this.startDate = startDate;

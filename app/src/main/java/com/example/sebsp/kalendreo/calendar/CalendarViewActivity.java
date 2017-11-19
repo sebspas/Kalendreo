@@ -39,7 +39,9 @@ public class CalendarViewActivity extends AbstractMultipleEventsActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CalendarViewActivity.this, CreateEventActivity.class));
+                Intent intent = new Intent(CalendarViewActivity.this, CreateEventActivity.class);
+                intent.putExtra(getString(R.string.EXTRA_START_DATE_SELECTED), dateSelected.getTimeInMillis());
+                startActivity(intent);
             }
         });
 

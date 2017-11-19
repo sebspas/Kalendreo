@@ -72,6 +72,20 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
     }
 
     /**
+     * Fetch the long value passed in the current intent
+     *
+     * @param key Key of the extra
+     * @return the Long extra value if existing, -1 if not
+     */
+    protected long getLongFromIntent(String key) {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            return bundle.getLong(key);
+        }
+        return -1;
+    }
+
+    /**
      * Store the data in Shared Preferences
      * Warning: this will auto commit, do not use if several editions are needed
      *
