@@ -5,7 +5,7 @@ import android.widget.LinearLayout;
 
 import com.example.sebsp.kalendreo.structure.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
-import com.example.sebsp.kalendreo.components.EventViewGroup;
+import com.example.sebsp.kalendreo.components.layouts.EventViewGroup;
 import com.example.sebsp.kalendreo.model.Event;
 
 public class CreateEventActivity extends AbstractLoggedInActivity {

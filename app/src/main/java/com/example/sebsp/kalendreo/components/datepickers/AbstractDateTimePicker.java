@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo.components.datepicker;
+package com.example.sebsp.kalendreo.components.datepickers;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatEditText;

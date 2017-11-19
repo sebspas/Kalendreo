@@ -54,7 +54,7 @@ public class DateFormatter {
      * @param date the date to format
      * @return the date formatted according to the application context
      */
-    public String getFullDateFromContext(Calendar date) {
+    public String getFullDate(Calendar date) {
         return getDate(date) + " " + getTime(date);
     }
 

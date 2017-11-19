@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo.components;
+package com.example.sebsp.kalendreo.components.layouts;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

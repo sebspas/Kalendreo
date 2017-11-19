@@ -1,4 +1,4 @@
-package com.example.sebsp.kalendreo.components;
+package com.example.sebsp.kalendreo.components.layouts;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.example.sebsp.kalendreo.components.datepicker.DateTimePickerLinearLayout;
+import com.example.sebsp.kalendreo.components.datepickers.DateTimePickerLinearLayout;
 import com.example.sebsp.kalendreo.structure.AbstractAppCompatActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.calendar.EventViewActivity;

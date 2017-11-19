@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.sebsp.kalendreo.MainActivity;
+import com.example.sebsp.kalendreo.components.adapters.EventsAdapter;
 import com.example.sebsp.kalendreo.components.listeners.MultipleEventsLoadedListener;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.calendar.EventViewActivity;
@@ -75,20 +76,8 @@ public abstract class AbstractMultipleEventsActivity extends AbstractLoggedInAct
      * @param eventsList List view where events should be displayed
      */
     protected void displayListView(ListView eventsList) {
-        // TODO GM: Create proper listview adapter
-        final ArrayAdapter adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, events);
+        final ArrayAdapter adapter = new EventsAdapter(this, events);
         eventsList.setAdapter(adapter);
-
-        eventsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String key = events.get(i).getId();
-                Intent intent = new Intent(AbstractMultipleEventsActivity.this, EventViewActivity.class);
-                intent.putExtra(getString(R.string.EXTRA_EVENT_ID), key);
-                startActivity(intent);
-            }
-        });
         eventsList.setVisibility(View.VISIBLE);
     }
 }

@@ -21,8 +21,8 @@ public class ReminderManager {
         //Setting intent to class where Alarm broadcast message will be handled
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("Title", e.getTitle());
-        intent.putExtra("StartDate", dateFormatter.getFullDateFromContext(e.getStartDate()));
-        intent.putExtra("EndDate", dateFormatter.getFullDateFromContext(e.getEndDate()));
+        intent.putExtra("StartDate", dateFormatter.getFullDate(e.getStartDate()));
+        intent.putExtra("EndDate", dateFormatter.getFullDate(e.getEndDate()));
 
         //Setting alarm pending intent to go on the broadcast receiver
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_TYPE_EVENT,

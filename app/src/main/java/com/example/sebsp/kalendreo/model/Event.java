@@ -133,7 +133,7 @@ public class Event extends Model {
         if (Objects.equals(title, "")) {
             throw new ModelNotValidException(R.string.error_event_title_empty);
         }
-        if (startDate.compareTo(endDate) >= 0) {
+        if (startDate.after(endDate)) {
             throw new ModelNotValidException(R.string.error_event_start_end_time);
         }
     }
