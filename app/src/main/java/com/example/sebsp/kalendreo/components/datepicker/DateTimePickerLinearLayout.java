@@ -3,6 +3,7 @@ package com.example.sebsp.kalendreo.components.datepicker;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -80,7 +81,17 @@ public class DateTimePickerLinearLayout extends AbstractLinearLayout {
         pickersLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         datePicker = new CustomDatePicker(getContext(), date);
+
+        ViewGroup.LayoutParams actualparams = datePicker.getLayoutParams();
+        LinearLayout.LayoutParams newParams = new LinearLayout.LayoutParams(actualparams);
+        newParams.weight = 1;
+        datePicker.setCustomLayoutParams(newParams);
+
         timePicker = new CustomTimePicker(getContext(), date);
+        actualparams = datePicker.getLayoutParams();
+        newParams = new LinearLayout.LayoutParams(actualparams);
+        newParams.weight = 2;
+        timePicker.setCustomLayoutParams(newParams);
 
         pickersLayout.addView(datePicker);
         pickersLayout.addView(timePicker);
