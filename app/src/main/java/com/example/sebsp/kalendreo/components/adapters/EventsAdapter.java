@@ -24,6 +24,8 @@ public class EventsAdapter extends ArrayAdapter<Event> {
 
     private final DateFormatter dateFormatter;
 
+    protected boolean enableClick = true;
+
     public EventsAdapter(@NonNull Context context, @NonNull List<Event> events) {
         super(context, 0, events);
         dateFormatter = new DateFormatter(context);
@@ -46,7 +48,9 @@ public class EventsAdapter extends ArrayAdapter<Event> {
         TextView tvEndDate = row.findViewById(R.id.event_end_date);
         TextView tvCategory = row.findViewById(R.id.event_category);
 
-        row.setOnClickListener(new EventOnClickListener(event));
+        if (enableClick) {
+            row.setOnClickListener(new EventOnClickListener(event));
+        }
 
         // Populate the data into the template view using the data object
         if (event != null) {

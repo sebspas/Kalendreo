@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sebsp.kalendreo.calendar.MyEventsActivity"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/friend_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/no_events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:text="@string/friend_have_no_events" />
+
+    <ListView
+        android:id="@+id/friend_events_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark" />
+
+</LinearLayout>

@@ -110,6 +110,7 @@
             android:name=".calendar.EventViewActivity"
             android:label="@string/title_activity_event_view"/>
         <activity android:name=".calendar.EditEventActivity" />
+        <activity android:name=".social.FriendEvents" />
 
     </application>
 

@@ -2,6 +2,7 @@ package com.example.sebsp.kalendreo.model;
 
 import com.example.sebsp.kalendreo.model.pojo.UserPOJO;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 public class User extends Model {
 
@@ -9,6 +10,10 @@ public class User extends Model {
 
     public static String getTableName() {
         return "users";
+    }
+
+    public static DatabaseReference getReference() {
+        return databaseReference.child(getTableName());
     }
 
     private FirebaseUser firebaseUser;
