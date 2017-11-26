@@ -1,15 +1,21 @@
 package com.example.sebsp.kalendreo.model;
 
-import android.util.Log;
-
 import com.example.sebsp.kalendreo.model.pojo.UserPOJO;
 import com.google.firebase.auth.FirebaseUser;
 
 public class User extends Model {
 
-    public static String getTableName() { return "users"; }
+    private String facebookId;
+
+    public static String getTableName() {
+        return "users";
+    }
 
     private FirebaseUser firebaseUser;
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
 
 
     // -------------- Constructors
@@ -31,7 +37,7 @@ public class User extends Model {
     // -------------- Getters & setters
 
     public String getEmail() {
-        return firebaseUser.getEmail();
+        return firebaseUser == null ? null : firebaseUser.getEmail();
     }
 
     // ------------- Override methods
@@ -54,5 +60,9 @@ public class User extends Model {
     @Override
     public void delete() {
         // No method to delete an user implemented yet
+    }
+
+    public String getFacebookId() {
+        return facebookId;
     }
 }

@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.sebsp.kalendreo.structure.AbstractNotLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.structure.AbstractNotLoggedInActivity;
 import com.example.sebsp.kalendreo.utils.Tag;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -29,7 +29,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 /**
@@ -148,11 +147,14 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                String fbId = loginResult.getAccessToken().getUserId();
                 Log.d(Tag.FACEBOOK_AUTH, "facebook:onSuccess:" + loginResult);
                 Intent intent = new Intent(LoginActivity.this, SplashScreenActivity.class);
                 intent.putExtra(getString(R.string.EXTRA_FACEBOOK_AUTH_TOKEN), loginResult.getAccessToken().getToken());
+                intent.putExtra(getString(R.string.EXTRA_FACEBOOK_USER_ID), fbId);
                 launchAndClose(intent);
             }
+
             @Override
             public void onCancel() {
                 Log.d(Tag.FACEBOOK_AUTH, "facebook:onCancel");

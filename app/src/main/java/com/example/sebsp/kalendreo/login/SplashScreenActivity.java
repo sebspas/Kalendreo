@@ -7,11 +7,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.sebsp.kalendreo.structure.AbstractAppCompatActivity;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
+import com.example.sebsp.kalendreo.model.ModelNotValidException;
+import com.example.sebsp.kalendreo.model.User;
 import com.example.sebsp.kalendreo.model.pojo.EventPOJO;
+import com.example.sebsp.kalendreo.structure.AbstractAppCompatActivity;
 import com.example.sebsp.kalendreo.utils.ReminderManager;
 import com.example.sebsp.kalendreo.utils.Tag;
 import com.facebook.AccessToken;
@@ -23,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -40,12 +43,14 @@ import java.util.HashMap;
 public class SplashScreenActivity extends AbstractAppCompatActivity {
 
     private String facebookToken = null;
+    private String facebookUserId = null;
     private String googleToken = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         facebookToken = getStringFromIntent(R.string.EXTRA_FACEBOOK_AUTH_TOKEN);
+        facebookUserId = getStringFromIntent(R.string.EXTRA_FACEBOOK_USER_ID);
         googleToken = getStringFromIntent("GoogleToken");
         new PrefetchData().execute();
     }
@@ -65,7 +70,8 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            if (userAuthenticatedWithFacebook = (facebookToken != null)) handleFacebookAccessToken(facebookToken);
+            if (userAuthenticatedWithFacebook = (facebookToken != null))
+                handleFacebookAccessToken(facebookToken);
             return null;
         }
 
@@ -104,7 +110,7 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
                             } catch (JSONException e) {
                                 Log.e(Tag.FACEBOOK_FRIENDS, e.toString());
                             }
-                            Log.e(Tag.FACEBOOK_AUTH,"Friends: " + response.getRawResponse());
+                            Log.e(Tag.FACEBOOK_AUTH, "Friends: " + response.getRawResponse());
                         }
                     }
             ).executeAsync();
@@ -126,6 +132,13 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(Tag.FACEBOOK_AUTH, "signInWithCredential:success");
+                                User user = new User(FirebaseAuth.getInstance().getCurrentUser());
+                                user.setFacebookId(facebookUserId);
+                                try {
+                                    user.save();
+                                } catch (ModelNotValidException e) {
+                                    e.displayMessage(SplashScreenActivity.this);
+                                }
                                 launchMainActivity();
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -143,6 +156,7 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
          * Launch the main activity
          */
         private void launchMainActivity() {
+            createAlarmForNotificationForEvent();
             // From here, the firebase authentication is done
             SplashScreenActivity.super.launchAndClose(new Intent(SplashScreenActivity.this, MainActivity.class));
         }
@@ -151,9 +165,11 @@ public class SplashScreenActivity extends AbstractAppCompatActivity {
          * Create the notification for all the event depending on the categorie
          */
         private void createAlarmForNotificationForEvent() {
-            // TODO GM: Call this method
+            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                return;
+            }
             final HashMap<String, Event> listOfEvents = new HashMap<>();
-            Event.getReference(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            Event.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
