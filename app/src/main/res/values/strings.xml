@@ -85,6 +85,7 @@
 
     <string name="from">from</string>
     <string name="to">to</string>
+    <string name="share_event">Share event via …</string>
 
 
 </resources>

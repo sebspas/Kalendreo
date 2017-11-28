@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 
+import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.EventFormatter;
 
@@ -30,7 +31,7 @@ public class EventOnLongClickListener implements OnLongClickListener {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(Intent.EXTRA_TEXT, EventFormatter.getText(v.getContext(), event));
-        v.getContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        v.getContext().startActivity(Intent.createChooser(sharingIntent, v.getContext().getResources().getString(R.string.share_event)));
         return false;
     }
 }
