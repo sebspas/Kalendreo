@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.sebsp.kalendreo.MainActivity;
+import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.components.adapters.EventsAdapter;
 import com.example.sebsp.kalendreo.components.listeners.MultipleEventsLoadedListener;
-import com.example.sebsp.kalendreo.R;
-import com.example.sebsp.kalendreo.calendar.EventViewActivity;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.Tag;
 
@@ -30,16 +28,19 @@ public abstract class AbstractMultipleEventsActivity extends AbstractLoggedInAct
 
     protected MultipleEventsLoadedListener listener;
 
+    protected ViewGroup parentContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listener = new MultipleEventsLoadedListener(this);
+        parentContainer = findViewById(R.id.parent_view);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        // TODO Display progress
+        displayProgressBar(parentContainer);
         loadEvents();
     }
 
@@ -57,7 +58,7 @@ public abstract class AbstractMultipleEventsActivity extends AbstractLoggedInAct
      * @param events events loaded
      */
     public void onEventsLoaded(List<Event> events) {
-        // TODO Hide Progress
+        hideProgressBar();
         this.events = events;
     }
 
@@ -65,8 +66,9 @@ public abstract class AbstractMultipleEventsActivity extends AbstractLoggedInAct
      * End this view in case of error
      */
     public void errorGettingEvent() {
+        hideProgressBar();
         Log.e(Tag.FIREBASE_ERROR, "Error getting the events");
-        Toast.makeText(this, getText(R.string.can_not_load_event), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, getText(R.string.can_not_load_event), Toast.LENGTH_SHORT).show();
         launchAndClose(new Intent(this, MainActivity.class));
     }
 

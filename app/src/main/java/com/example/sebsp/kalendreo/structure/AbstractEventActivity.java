@@ -3,11 +3,11 @@ package com.example.sebsp.kalendreo.structure;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.ViewGroup;
 
-import com.example.sebsp.kalendreo.components.listeners.EventLoadedListener;
 import com.example.sebsp.kalendreo.MainActivity;
 import com.example.sebsp.kalendreo.R;
+import com.example.sebsp.kalendreo.components.listeners.EventLoadedListener;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.Tag;
 
@@ -18,11 +18,13 @@ import com.example.sebsp.kalendreo.utils.Tag;
 public abstract class AbstractEventActivity extends AbstractLoggedInActivity {
 
     protected EventLoadedListener listener;
+    protected ViewGroup parentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listener = new EventLoadedListener(this);
+        parentContainer = findViewById(R.id.parent_view);
     }
 
     @Override
@@ -32,9 +34,10 @@ public abstract class AbstractEventActivity extends AbstractLoggedInActivity {
         if (idEvent == null) {
             this.errorGettingEvent();
         }
-        // TODO Display Progress
+        displayProgressBar(parentContainer);
         loadEvent(idEvent);
     }
+
 
     @Override
     protected void onStop() {
@@ -50,14 +53,16 @@ public abstract class AbstractEventActivity extends AbstractLoggedInActivity {
      * @param event event loaded
      */
     public void onEventLoaded(Event event) {
-        // TODO Hide Progress
+        hideProgressBar();
     }
 
     /**
      * End this view in case of error
      */
     public void errorGettingEvent() {
+        hideProgressBar();
         Log.e(Tag.INTENT_ERROR, "Could not get id event from intent");
         launchAndClose(new Intent(this, MainActivity.class));
     }
+
 }

@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +22,9 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
     // Firebase set up
     protected FirebaseUser firebaseUser;
     protected FirebaseAuth firebaseAuth;
+
+    // Progress bar
+    private ProgressBar progressBar;
 
     public FirebaseUser getFirebaseUser() {
         return firebaseUser;
@@ -122,6 +129,29 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity {
      */
     protected String getFromSharedPreferences(int rIdSpFile, int rIdSpKey, String defaultValue) {
         return this.getFromSharedPreferences(getString(rIdSpFile), getString(rIdSpKey), defaultValue);
+    }
+
+    /**
+     * Display progress bar dynamically
+     */
+    protected void displayProgressBar(ViewGroup parentContainer) {
+        if (parentContainer == null) return;
+        if (progressBar == null) {
+            progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
+            progressBar.setIndeterminate(true);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            parentContainer.addView(progressBar, params);
+            setContentView(parentContainer);
+        }
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Hide the progress bar
+     */
+    protected void hideProgressBar() {
+        if (progressBar != null) progressBar.setVisibility(View.INVISIBLE);
     }
 
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sebsp.kalendreo.calendar.CalendarViewActivity">
@@ -13,43 +14,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-            <LinearLayout
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/no_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="@dimen/com_facebook_likeview_internal_padding"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/com_facebook_likeboxcountview_caret_width"
+                android:text="@string/no_event_scheduled"
+                android:textColor="@color/bg_register" />
 
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+            <ListView
+                android:id="@+id/calendar_list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/com_facebook_likeboxcountview_caret_width"
+                android:layout_marginRight="@dimen/com_facebook_likeboxcountview_caret_width"
+                android:background="@color/colorPrimaryDark"
+                android:visibility="invisible" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/no_event"
-                        android:textColor="@color/bg_register"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/com_facebook_likeview_internal_padding"
-                        android:background="@color/colorAccent"
-                        android:padding="@dimen/com_facebook_likeboxcountview_caret_width"
-                        android:text="@string/no_event_scheduled" />
-
-                    <ListView
-                        android:id="@+id/calendar_list_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/com_facebook_likeboxcountview_caret_width"
-                        android:layout_marginRight="@dimen/com_facebook_likeboxcountview_caret_width"
-                        android:background="@color/colorPrimaryDark"
-                        android:visibility="invisible"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -57,13 +51,20 @@
         android:id="@+id/include"
         layout="@layout/content_calendar_view" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_add_event"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/plus_symbol" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_add_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            app:backgroundTint="@color/colorPrimary"
+            app:srcCompat="@drawable/plus_symbol" />
+    </LinearLayout>
+
+</RelativeLayout>
