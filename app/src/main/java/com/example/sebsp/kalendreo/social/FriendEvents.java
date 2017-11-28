@@ -78,12 +78,24 @@ public class FriendEvents extends AbstractMultipleEventsActivity {
 
     @Override
     public void onEventsLoaded(List<Event> eventsLoaded) {
-        if (eventsLoaded.isEmpty()) {
+        super.onEventsLoaded(eventsLoaded);
+        filterEvents();
+        if (events.isEmpty()) {
             displayNoEvents();
         } else {
-            super.onEventsLoaded(eventsLoaded);
             noEventsView.setVisibility(View.INVISIBLE);
             displayListView(eventsList);
+        }
+    }
+
+    /**
+     * Remove the private events from the list
+     */
+    private void filterEvents() {
+        for (Event event : events) {
+            if (event.isPrivate()) {
+                events.remove(event);
+            }
         }
     }
 
