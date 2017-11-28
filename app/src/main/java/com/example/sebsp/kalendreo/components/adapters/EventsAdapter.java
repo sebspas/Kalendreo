@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.components.listeners.EventOnClickListener;
+import com.example.sebsp.kalendreo.components.listeners.EventOnLongClickListener;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.DateFormatter;
 import com.example.sebsp.kalendreo.utils.EventFormatter;
@@ -52,16 +53,7 @@ public class EventsAdapter extends ArrayAdapter<Event> {
 
         if (enableClick) {
             row.setOnClickListener(new EventOnClickListener(event));
-            row.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                    sharingIntent.setType("text/plain");
-                    sharingIntent.putExtra(Intent.EXTRA_TEXT, EventFormatter.getText(getContext(), event));
-                    getContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                    return false;
-                }
-            });
+            row.setOnLongClickListener(new EventOnLongClickListener(event));
         }
 
         // Populate the data into the template view using the data object
