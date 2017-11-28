@@ -22,6 +22,7 @@ public class EventViewActivity extends AbstractEventActivity {
     private TextView startTime;
     private TextView endDate;
     private TextView endTime;
+    private TextView privateEvent;
     private FloatingActionButton editEvent;
     private FloatingActionButton deleteEvent;
 
@@ -35,9 +36,10 @@ public class EventViewActivity extends AbstractEventActivity {
         startTime = findViewById(R.id.SelectStartHours);
         endDate = findViewById(R.id.SelectEndDate);
         endTime = findViewById(R.id.SelectEndHours);
-        eventType = findViewById(R.id.ListCategorie);
+        eventType = findViewById(R.id.category);
         editEvent = findViewById(R.id.EditEvent);
         deleteEvent = findViewById(R.id.DeleteEvent);
+        privateEvent = findViewById(R.id.private_event);
     }
 
     @Override
@@ -64,6 +66,9 @@ public class EventViewActivity extends AbstractEventActivity {
         endDate.setText(dateFormatter.getDate(event.getEndDate()));
         endTime.setText(dateFormatter.getTime(event.getEndDate()));
         eventType.setText(event.getCategory());
+
+        int privateEventText = event.isPrivate() ? R.string.private_event : R.string.public_event;
+        privateEvent.setText(privateEventText);
 
         editEvent.setOnClickListener(new View.OnClickListener() {
             @Override

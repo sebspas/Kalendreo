@@ -37,6 +37,7 @@
     <string name="DateFin">End Date</string>
     <string name="EndHour">00:00</string>
     <string name="select_category">Select Category of Event</string>
+    <string name="event_category">Category of Event</string>
     <string name="ValiderEvent">Create</string>
     <string name="EventTitle">Event Title</string>
     <string name="CreateEvent">Create an Event</string>
@@ -47,6 +48,8 @@
     <string name="select_date">Select a date</string>
     <string name="start_date_time">Starting datetime</string>
     <string name="end_date_time">Ending datetime</string>
+    <string name="private_event">Private event</string>
+    <string name="public_event">Public event</string>
 
     <string name="btn_friends">Friends</string>
 

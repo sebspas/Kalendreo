@@ -118,15 +118,23 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="5dp"
-                android:text="@string/select_category"
+                android:text="@string/event_category"
                 android:textColor="@color/colorAccent" />
 
             <TextView
-                android:id="@+id/ListCategorie"
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/private_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
     </ScrollView>

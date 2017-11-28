@@ -13,6 +13,7 @@ import java.util.Objects;
 
 public class Event extends Model {
 
+
     public static String getTableName() {
         return "events";
     }
@@ -28,6 +29,7 @@ public class Event extends Model {
     private String userId;
     private String category = "";
     private String title = "";
+    private boolean aPrivate = false;
 
     public Event(EventPOJO eventPOJO) {
         this.startDate.setTimeInMillis(eventPOJO.startDate);
@@ -36,6 +38,7 @@ public class Event extends Model {
         this.title = eventPOJO.title;
         this.userId = eventPOJO.userId;
         this.id = eventPOJO.id;
+        this.aPrivate = eventPOJO.aPrivate;
     }
 
     // ---------------- Setters & getters
@@ -80,6 +83,14 @@ public class Event extends Model {
         this.userId = userId;
     }
 
+    public boolean isPrivate() {
+        return aPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        this.aPrivate = aPrivate;
+    }
+
     // ----------------- Constructors
 
     public Event() {
@@ -97,14 +108,6 @@ public class Event extends Model {
         this.startDate.set(Calendar.HOUR_OF_DAY, 12); // Midday by default
         this.endDate.setTimeInMillis(starDate);
         this.endDate.set(Calendar.HOUR_OF_DAY, 13); // 1 pm
-    }
-
-    public Event(String title, Calendar startDate, Calendar endDate, String category, String userId) {
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.category = category;
-        this.userId = userId;
     }
 
     // ----------------- Override methods

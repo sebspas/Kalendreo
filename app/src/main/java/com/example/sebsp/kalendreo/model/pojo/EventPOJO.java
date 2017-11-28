@@ -15,8 +15,9 @@ public class EventPOJO {
     public String category;
     public long startDate;
     public long endDate;
+    public boolean aPrivate;
 
-    public EventPOJO() {};
+    public EventPOJO() {}
 
     public EventPOJO(Event event) {
         this.title = event.getTitle();
@@ -25,5 +26,6 @@ public class EventPOJO {
         this.id = event.getId();
         this.category = event.getCategory();
         this.userId = event.getUserId();
+        this.aPrivate = event.isPrivate();
     }
 }

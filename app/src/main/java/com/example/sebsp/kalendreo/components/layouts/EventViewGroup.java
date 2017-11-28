@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -37,6 +38,7 @@ public class EventViewGroup extends AbstractLinearLayout {
     private TextView categoriesTV;
     private Spinner categoriesSpinner;
     private Button saveButton;
+    private CheckBox checkBox;
     private User user;
 
     // ---------------- Constructors
@@ -118,8 +120,14 @@ public class EventViewGroup extends AbstractLinearLayout {
         categoriesTV.setLayoutParams(getDefaultLayoutParams());
         categoriesTV.setTextColor(getResources().getColor(R.color.colorAccent));
         categoriesTV.setText(getResources().getText(R.string.select_category));
-
         constructSpinner();
+
+        // Checkbox publicity
+        checkBox = new CheckBox(getContext());
+        checkBox.setLayoutParams(getDefaultLayoutParams());
+        checkBox.setText(R.string.private_event);
+        checkBox.setChecked(event.isPrivate());
+        this.setAllPaddingsInDp(checkBox, 16);
 
         // Save Button
         saveButton = new Button(getContext());
@@ -172,6 +180,7 @@ public class EventViewGroup extends AbstractLinearLayout {
         this.addView(endDateTime);
         this.addView(categoriesTV);
         this.addView(categoriesSpinner);
+        this.addView(checkBox);
         this.addView(saveButton);
     }
 
@@ -186,6 +195,7 @@ public class EventViewGroup extends AbstractLinearLayout {
         event.setTitle(EventViewGroup.this.titleET.getText().toString());
         event.setCategory(categoriesSpinner.getSelectedItem().toString());
         event.setUser(this.user.getId());
+        event.setPrivate(checkBox.isChecked());
         try {
             event.save();
             ReminderManager.createAReminder(currentActivity, event);
