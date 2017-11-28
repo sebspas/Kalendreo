@@ -29,7 +29,7 @@ public class Event extends Model {
     private String userId;
     private String category = "";
     private String title = "";
-    private boolean aPrivate = false;
+    private boolean aPrivate = true;
 
     public Event(EventPOJO eventPOJO) {
         this.startDate.setTimeInMillis(eventPOJO.startDate);

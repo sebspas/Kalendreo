@@ -83,15 +83,15 @@ public class EventViewActivity extends AbstractEventActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog deleteEventAlert = new AlertDialog.Builder(EventViewActivity.this)
-                        .setTitle("Delete this Event")
-                        .setMessage("Do you really want to delete this event?")
+                        .setTitle(R.string.delete_event_dialog_title)
+                        .setMessage(R.string.delete_event_dialog_message)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // suppress the event from firebase
                                 event.delete();
                                 // got to the MyEventsActivity
-                                Intent intent = new Intent(EventViewActivity.this, MainActivity.class);
+                                Intent intent = new Intent(EventViewActivity.this, MyEventsActivity.class);
                                 launchAndClose(intent);
                             }})
                         .setNegativeButton(android.R.string.no, null).show();

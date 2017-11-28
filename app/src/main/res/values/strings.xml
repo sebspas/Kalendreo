@@ -80,6 +80,8 @@
     <string name="error_event_title_empty">You must fill the event title</string>
     <string name="can_not_load_event">Can\'t load event</string>
     <string name="friend_have_no_events">Your friend have no events</string>
+    <string name="delete_event_dialog_title">Delete this Event</string>
+    <string name="delete_event_dialog_message">Do you really want to delete this event?</string>
 
 
 </resources>

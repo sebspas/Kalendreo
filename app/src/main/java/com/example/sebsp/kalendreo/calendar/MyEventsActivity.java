@@ -27,7 +27,7 @@ public class MyEventsActivity extends AbstractMultipleEventsActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MyEventsActivity.this, CreateEventActivity.class));
+                MyEventsActivity.this.launchAndClose(new Intent(MyEventsActivity.this, CreateEventActivity.class));
             }
         });
 

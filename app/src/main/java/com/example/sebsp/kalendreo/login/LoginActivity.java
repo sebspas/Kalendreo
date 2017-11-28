@@ -220,5 +220,10 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
         progressBar.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }
 
