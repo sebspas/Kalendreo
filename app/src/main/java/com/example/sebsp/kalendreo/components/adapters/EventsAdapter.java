@@ -1,6 +1,7 @@
 package com.example.sebsp.kalendreo.components.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.components.listeners.EventOnClickListener;
 import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.utils.DateFormatter;
+import com.example.sebsp.kalendreo.utils.EventFormatter;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class EventsAdapter extends ArrayAdapter<Event> {
     @Override
     public View getView(int position, View row, @NonNull ViewGroup parent) {
 
-        Event event = getItem(position);
+        final Event event = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (row == null) {
@@ -50,6 +52,16 @@ public class EventsAdapter extends ArrayAdapter<Event> {
 
         if (enableClick) {
             row.setOnClickListener(new EventOnClickListener(event));
+            row.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT, EventFormatter.getText(getContext(), event));
+                    getContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                    return false;
+                }
+            });
         }
 
         // Populate the data into the template view using the data object

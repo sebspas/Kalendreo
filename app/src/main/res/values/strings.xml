@@ -83,5 +83,8 @@
     <string name="delete_event_dialog_title">Delete this Event</string>
     <string name="delete_event_dialog_message">Do you really want to delete this event?</string>
 
+    <string name="from">from</string>
+    <string name="to">to</string>
+
 
 </resources>
