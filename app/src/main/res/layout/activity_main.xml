@@ -6,55 +6,80 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-        <Button
-            android:id="@+id/CreateAnEvent"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@color/colorAccent"
-            android:text="@string/CreateEvent"
-            tools:layout_editor_absoluteX="29dp"
-            tools:layout_editor_absoluteY="56dp" />
+            android:layout_height="163dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/MyEvents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@color/colorAccent"
-            android:text="@string/title_activity_my_events"
-            tools:layout_editor_absoluteX="29dp"
-            tools:layout_editor_absoluteY="56dp" />
+            <Button
+                android:id="@+id/MyEvents"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/time"
+                android:text="@string/title_activity_my_events"
+                android:textColor="@color/bg_register"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteY="56dp" />
 
-        <Button
-            android:id="@+id/ViewCalendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@color/colorAccent"
-            android:text="@string/ViewCalendar"
-            tools:layout_editor_absoluteX="29dp"
-            tools:layout_editor_absoluteY="56dp" />
+            <Button
+                android:id="@+id/ViewCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/calendar"
+                android:text="@string/ViewCalendar"
+                android:textColor="@color/bg_register"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteY="56dp" />
 
-        <Button
-            android:id="@+id/show_friends"
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@color/colorPrimaryDark"
-            android:text="@string/btn_friends"
-            tools:layout_editor_absoluteX="29dp"
-            tools:layout_editor_absoluteY="56dp" />
+            android:layout_height="183dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/show_friends"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/bg_friends"
+                android:text="@string/btn_friends"
+                android:textColor="@color/bg_register"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteY="56dp" />
+
+            <Button
+                android:id="@+id/CreateAnEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/create_event"
+                android:text="@string/CreateEvent"
+                android:textColor="@color/bg_register"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteY="56dp" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/LogOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="60dp"
             android:background="@color/colorPrimaryDark"
             android:text="@string/log_out"
             tools:layout_editor_absoluteX="29dp"
