@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class FriendEvents extends AbstractMultipleEventsActivity {
     }
 
     @Override
-    public void onEventsLoaded(List<Event> eventsLoaded) {
+    synchronized public void onEventsLoaded(List<Event> eventsLoaded) {
         super.onEventsLoaded(eventsLoaded);
         filterEvents();
         if (events.isEmpty()) {
@@ -91,12 +92,14 @@ public class FriendEvents extends AbstractMultipleEventsActivity {
     /**
      * Remove the private events from the list
      */
-    private void filterEvents() {
+    synchronized private void filterEvents() {
+        List<Event> toRemove = new ArrayList<>();
         for (Event event : events) {
             if (event.isPrivate()) {
-                events.remove(event);
+                toRemove.add(event);
             }
         }
+        events.removeAll(toRemove);
     }
 
     private void displayNoEvents() {
