@@ -222,7 +222,7 @@ public class LoginActivity extends AbstractNotLoggedInActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        finishAffinity();
     }
 
 }

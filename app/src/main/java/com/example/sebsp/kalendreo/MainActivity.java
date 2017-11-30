@@ -62,6 +62,6 @@ public class MainActivity extends AbstractLoggedInActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        finishAffinity();
     }
 }
