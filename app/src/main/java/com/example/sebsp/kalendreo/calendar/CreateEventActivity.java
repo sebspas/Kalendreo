@@ -3,10 +3,10 @@ package com.example.sebsp.kalendreo.calendar;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-import com.example.sebsp.kalendreo.structure.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.components.layouts.EventViewGroup;
 import com.example.sebsp.kalendreo.model.Event;
+import com.example.sebsp.kalendreo.structure.AbstractLoggedInActivity;
 
 public class CreateEventActivity extends AbstractLoggedInActivity {
 

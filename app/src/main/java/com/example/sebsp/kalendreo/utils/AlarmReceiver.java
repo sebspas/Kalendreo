@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.support.v4.app.NotificationCompat;
 import android.widget.CalendarView;
 
@@ -39,6 +40,30 @@ public class AlarmReceiver extends BroadcastReceiver {
         //Send local notification
         ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE))
                 .notify(ReminderManager.ALARM_TYPE_EVENT, mBuilder.build());
+
+        String categorie = intent.getStringExtra("Categorie");
+        String type = intent.getStringExtra("Type");
+        if (categorie.equals("Work") && type.equals("Start")) {
+            setRingerToSilent(context);
+        } else if (categorie.equals("Work") && type.equals("End")) {
+            setRingerToNormal(context);
+        }
+    }
+
+    /**
+     * To Enable silent mode
+     */
+    private void setRingerToSilent(Context context){
+        AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+    }
+
+    /**
+     * To Enable Ringer mode
+     */
+    private void setRingerToNormal(Context context) {
+        AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audio.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
     }
 
 }

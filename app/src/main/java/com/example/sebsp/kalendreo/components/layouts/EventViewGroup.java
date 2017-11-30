@@ -1,10 +1,13 @@
 package com.example.sebsp.kalendreo.components.layouts;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,6 +26,8 @@ import com.example.sebsp.kalendreo.model.Event;
 import com.example.sebsp.kalendreo.model.ModelNotValidException;
 import com.example.sebsp.kalendreo.model.User;
 import com.example.sebsp.kalendreo.utils.ReminderManager;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Gaetan on 15/11/2017.
@@ -194,6 +199,19 @@ public class EventViewGroup extends AbstractLinearLayout {
         event.setEndDate(EventViewGroup.this.endDateTime.getDate());
         event.setTitle(EventViewGroup.this.titleET.getText().toString());
         event.setCategory(categoriesSpinner.getSelectedItem().toString());
+
+        // ASK for the right to modify the sound
+        NotificationManager notificationManager =
+                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !notificationManager.isNotificationPolicyAccessGranted()) {
+            Intent newPolicyIntent = new Intent(
+                    android.provider.Settings
+                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+
+            getApplicationContext().startActivity(newPolicyIntent);
+        }
+
         event.setUser(this.user.getId());
         event.setPrivate(checkBox.isChecked());
         try {
