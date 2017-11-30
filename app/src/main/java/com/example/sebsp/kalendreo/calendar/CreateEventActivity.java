@@ -1,12 +1,18 @@
 package com.example.sebsp.kalendreo.calendar;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-import com.example.sebsp.kalendreo.structure.AbstractLoggedInActivity;
 import com.example.sebsp.kalendreo.R;
 import com.example.sebsp.kalendreo.components.layouts.EventViewGroup;
 import com.example.sebsp.kalendreo.model.Event;
+import com.example.sebsp.kalendreo.structure.AbstractLoggedInActivity;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class CreateEventActivity extends AbstractLoggedInActivity {
 
@@ -17,6 +23,18 @@ public class CreateEventActivity extends AbstractLoggedInActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
         linearLayoutContainer = findViewById(R.id.create_event_container);
+
+        // ASK for the right to modify the sound
+        NotificationManager notificationManager =
+                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && !notificationManager.isNotificationPolicyAccessGranted()) {
+            Intent newPolicyIntent = new Intent(
+                    android.provider.Settings
+                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+
+            startActivity(newPolicyIntent);
+        }
 
         Event event = getEventSetFromIntent();
         // Create & add the new event view group

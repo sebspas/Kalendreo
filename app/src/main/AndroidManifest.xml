@@ -16,6 +16,9 @@
     <!-- Permission to plan an alarm -->
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
+    <!-- Permission to change the volume -->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
