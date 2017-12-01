@@ -92,6 +92,7 @@
         <!-- Calendar View Activity -->
         <activity
             android:name=".calendar.CalendarViewActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_calendar_view" />
         <!-- End Calendar View Activity -->
 

@@ -43,9 +43,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         String categorie = intent.getStringExtra("Categorie");
         String type = intent.getStringExtra("Type");
-        if (categorie.equals("Work") && type.equals("Start")) {
+        if ((categorie.equals("Work") || categorie.equals("Silent")) && type.equals("Start")) {
             setRingerToSilent(context);
-        } else if (categorie.equals("Work") && type.equals("End")) {
+        } else if ((categorie.equals("Work") || categorie.equals("Silent")) && type.equals("End")) {
             setRingerToNormal(context);
         }
     }
